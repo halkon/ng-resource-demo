@@ -18,6 +18,6 @@ describe('Encore: HomeCtrl', function () {
 
     it('HomeCtrl should automatically set default value for "hello"', function () {
         expect(scope.hello).to.not.be.empty;
-        expect(scope.hello).to.eq('Hello');
+        expect(scope.hello).to.eq('Hello Developer');
     });
 });

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('encoreApp', ['ngRoute', 'ngResource'])
+angular.module('encoreApp', ['ngRoute', 'ngResource', 'homeSvcs'])
     .config(function ($routeProvider, $locationProvider) {
         $routeProvider
             .when('/home', {
