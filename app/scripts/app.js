@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('billingApp', ['ngRoute', 'ngResource'])
+angular.module('encoreApp', ['ngRoute', 'ngResource'])
     .config(function ($routeProvider, $locationProvider) {
         $routeProvider
             .when('/home', {

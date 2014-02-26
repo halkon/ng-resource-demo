@@ -1,8 +1,8 @@
 
-describe('Billing: HomeCtrl', function () {
+describe('Encore: HomeCtrl', function () {
     var scope, ctrl;
     beforeEach(function () {
-        module('billingApp');
+        module('encoreApp');
         inject(function ($controller, $rootScope) {
             scope = $rootScope.$new();
 
