@@ -20,12 +20,7 @@ module.exports = function(config) {
             'bower_components/angular-route/angular-route.js',
             'bower_components/angular-sanitize/angular-sanitize.js',
             'https://95c7050854423f809e66-6999ba0e7a4f47d417515fb3f08fa9b8.ssl.cf1.rackcdn.com/0.0.4/encore-ui-tpls.min.js',
-            'bower_components/angular-xeditable/dist/js/xeditable.js',
-            'bower_components/angular-rx-data-table/dist/scripts/rx-data-table.js',
             'bower_components/lodash/dist/lodash.js',
-            'bower_components/mousetrap/mousetrap.js',
-            'bower_components/mousetrap-bind-element/mousetrap-bind-element.js',
-            'bower_components/momentjs/moment.js',
             'scripts/**/*.js',
             '../test/browser-helpers.js',
             'views/**/*.html',// templates
