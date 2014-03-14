@@ -60,7 +60,9 @@
     "grunt-connect-rewrite": "^0.2.1",
     "grunt-plato": "^1.0.0",
     "connect-modrewrite": "^0.6.4-pre",
-    "fs-extra": "^0.8.1"
+    "fs-extra": "^0.8.1",
+    "grunt-stubby": "~0.1.4",
+    "stubby": "~0.2.3"
   },
   "repository": {
     "type": "git",
