@@ -15,6 +15,17 @@ module.exports = {
             rewrite: {
                 '/api': '/api'
             }
+        },
+        {
+            context: '/identity',
+            host: 'identity.api.rackspacecloud.com',
+            port: 443,
+            https: true,
+            xforward: true,
+            changeOrigin: true,
+            rewrite: {
+                'identity': '/v2.0'
+            }
         }
     ],
     livereload: {
