@@ -1,0 +1,16 @@
+body {
+    margin: 0;
+    font-family: "Roboto", sans-serif;
+}
+
+.clearfix() {
+    zoom: 1;
+    &:before { content: ''; display: block; }
+    &:after { content: ''; display: table; clear: both; }
+}
+
+.content {
+    margin: 0 0 20px;
+    clear: both;
+    .clearfix();
+}

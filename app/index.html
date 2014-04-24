@@ -9,16 +9,13 @@
     <title>Encore</title>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://95c7050854423f809e66-6999ba0e7a4f47d417515fb3f08fa9b8.ssl.cf1.rackcdn.com/0.0.4/encore-ui.css">
+    <link rel="stylesheet" href="https://95c7050854423f809e66-6999ba0e7a4f47d417515fb3f08fa9b8.ssl.cf1.rackcdn.com/encore-ui-0.7.5.min.css">
 
     <!-- build:css({.tmp,app}) /styles/app.css -->
     <link rel="stylesheet" href="/styles/app.css">
     <!-- endbuild -->
 </head>
   <body ng-app="encoreApp">
-    <!--[if lt IE 7]>
-      <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
-    <![endif]-->
 
     <!--[if lt IE 9]>
       <script src="/bower_components/es5-shim/es5-shim.js"></script>
@@ -26,8 +23,37 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="container" ng-view=""></div>
+    <rx-app>
+        <ng-view></ng-view>
+    </rx-app>
 
+    <div ng-controller="LoginModalCtrl">
+        <div ng-if="environment === 'local'" style='background: #1a1a1a'>
+            <rx-modal-action
+                pre-hook="populate(this)"
+                post-hook="changePass(fields)"
+                template-url="modalLogin.html">
+                <button>Login</button>
+            </rx-modal-action>
+            <script type="text/ng-template" id="modalLogin.html">
+                <rx-modal-form title="Login">
+                    <rx-form-input
+                        type="text"
+                        required="true"
+                        label="SSO Username"
+                        field-id="username"
+                        model="user.username"></rx-form-input>
+
+                    <rx-form-input
+                        type="password"
+                        required="true"
+                        label="RSA Token"
+                        field-id="token"
+                        model="user.token"></rx-form-input>
+                </rx-modal-form>
+            </script>
+        </div>
+    </div>
     <!-- build:js /scripts/plugins.js -->
     <!-- endbuild -->
 
@@ -38,10 +64,11 @@
     <script src="/bower_components/angular-resource/angular-resource.js"></script>
     <script src="/bower_components/angular-route/angular-route.js"></script>
     <script src="/bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.js"></script>
     <script src="/bower_components/lodash/dist/lodash.js"></script>
     <!-- endbuild -->
 
-    <script src="https://95c7050854423f809e66-6999ba0e7a4f47d417515fb3f08fa9b8.ssl.cf1.rackcdn.com/0.0.4/encore-ui-tpls.min.js"></script>
+    <script src="https://95c7050854423f809e66-6999ba0e7a4f47d417515fb3f08fa9b8.ssl.cf1.rackcdn.com/encore-ui-tpls-0.7.5.min.js"></script>
 
 
     <!-- build:js({.tmp,app}) /scripts/scripts.js -->
@@ -49,6 +76,6 @@
     <script src="/scripts/home/homeCtrl.js"></script>
     <script src="/scripts/home/homeSvcs.js"></script>
     <!-- endbuild -->
-    
+
 </body>
 </html>

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('encoreApp', ['ngRoute', 'ngResource', 'homeSvcs'])
+angular.module('encoreApp', ['ngRoute', 'ngResource', 'encore.ui', 'encore.ui.rxModalAction', 'homeSvcs'])
     .config(function ($routeProvider, $locationProvider) {
         $routeProvider
             .when('/home', {
@@ -12,4 +12,30 @@ angular.module('encoreApp', ['ngRoute', 'ngResource', 'homeSvcs'])
             });
 
         $locationProvider.html5Mode(true).hashPrefix('!');
+    }).run(function ($window, Auth, Environment) {
+        var environment = Environment.get().name;
+
+        if (environment !== 'local' && !Auth.isAuthenticated()) {
+            $window.location('/login');
+        }
+    }).controller('LoginModalCtrl', function ($scope, Auth, Environment, rxNotify) {
+        $scope.environment = Environment.get().name;
+
+        var authenticate = function (credentials, success, error) {
+            //override the body here
+            var body = {
+            };
+
+            return Auth.loginWithJSON(body, success, error);
+        };
+
+        $scope.login = function () {
+            authenticate($scope.user, function (data) {
+                Auth.storeToken(data);
+            }, function (error) {
+                rxNotify.add('Invalid Username or RSA Token', { type: 'warning' });
+                $scope.user.token = '';
+                console.log(error);
+            });
+        };
     });
