@@ -5,9 +5,9 @@ module.exports = {
     dist: {
         files: [{
             expand: true,
-            cwd: '<%= ngmin.config.dist %>/scripts',
-            src: '*.js',
-            dest: '<%= ngmin.config.dist %>/scripts'
+            cwd: '<%= ngmin.config.appDest %>/scripts',
+            src: ['*.js','!*.spec.js'],
+            dest: '<%= ngmin.config.appDest %>/scripts'
         }]
     }
 };

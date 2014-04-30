@@ -1,4 +1,7 @@
-var config = require('../util/config.js');
+var config = require('../util/config.js'),
+    appLocalRewrite = {};
+
+appLocalRewrite['/'+config.appName] = '';
 
 module.exports = {
     options: {
@@ -6,6 +9,12 @@ module.exports = {
         hostname: 'localhost'
     },
     proxies: [
+        {
+            context: '/' + config.appName,
+            host: 'localhost',
+            port: 9000,
+            rewrite: appLocalRewrite
+        },
         {
             context: '/api',
             host: 'localhost',
@@ -17,7 +26,7 @@ module.exports = {
             }
         },
         {
-            context: '/identity',
+            context: '/api/identity',
             host: 'identity.api.rackspacecloud.com',
             port: 443,
             https: true,
@@ -30,10 +39,10 @@ module.exports = {
     ],
     livereload: {
         options: {
-            middleware: function(cnct) {
+            middleware: function (cnct) {
                 return [
                     config.proxyRequest,
-                    config.modRewrite(['!\\.\\w+$ /']),
+                    config.modRewrite(['!\\.[0-9a-zA-Z_-]+$ /index.html']),
                     config.liveReloadPage,
                     config.mountFolder(cnct, '.tmp'),
                     config.mountFolder(cnct, config.app)
@@ -43,10 +52,10 @@ module.exports = {
     },
     test: {
         options: {
-            middleware: function(cnct) {
+            middleware: function (cnct) {
                 return [
                     config.proxyRequest,
-                    config.modRewrite(['!\\.\\w+$ /']),
+                    config.modRewrite(['!\\.[0-9a-zA-Z_-]+$ /index.html']),
                     config.liveReloadPage,
                     config.mountFolder(cnct, '.tmp'),
                     config.mountFolder(cnct, config.app)
@@ -56,9 +65,9 @@ module.exports = {
     },
     dist: {
         options: {
-            middleware: function(cnct) {
+            middleware: function (cnct) {
                 return [
-                    config.mountFolder(cnct, config.dist)
+                    config.mountFolder(cnct, config.appDest)
                 ];
             }
         }

@@ -8,7 +8,7 @@ module.exports = {
     },
     specs: {
         files: ['app/scripts/**/*.spec.js'],
-        tasks: ['jshint:specs','jscs:scripts', 'test:unit'],
+        tasks: ['jshint:specs','jscs:specs', 'test:unit'],
         options: {
             livereload: false
         }
@@ -21,7 +21,7 @@ module.exports = {
         }
     },
     html: {
-        files: ['app/index.html', 'app/views/{,*/}*.html'],
+        files: ['app/index.html', 'app/views/{,**/}*.html'],
         options: {
             livereload: true
         }

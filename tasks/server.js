@@ -3,25 +3,28 @@ module.exports = function (grunt) {
     grunt.registerTask('server',
         'Runs app in development mode. Options: "server", "server:dist", "server:stubbed:watch"',
         function(target, watch) {
-        var commonTasks = [
-            'clean:server',
-            'less',
-            'configureProxies',
-            'concurrent:server',
-            'connect:livereload'
-        ];
+            var commonTasks = [
+                'clean',
+                'jshint',
+                'jscs',
+                'karma:watch',
+                'less',
+                'configureProxies',
+                'connect:livereload'
+            ];
 
-        if (target === 'dist') {
-            return grunt.task.run(['build', 'open', 'connect:dist:keepalive']);
-        } else if (target === 'stubbed') {
-            commonTasks.unshift('stubby');
-            if (watch === 'watch' || watch === 'true') {
+            if (target === 'dist') {
+                return grunt.task.run(['build', 'open', 'connect:dist:keepalive']);
+            } else if (target === 'stubbed') {
+                commonTasks.unshift('stubby');
+                if (watch === 'watch' || watch === 'true') {
+                    commonTasks.push('open');
+                    commonTasks.push('watch');
+                }
+            } else {
+                commonTasks.push('open');
                 commonTasks.push('watch');
             }
-        } else {
-            commonTasks.push('open');
-            commonTasks.push('watch');
-        }
-        grunt.task.run(commonTasks);
-    });
+            grunt.task.run(commonTasks);
+        });
 };

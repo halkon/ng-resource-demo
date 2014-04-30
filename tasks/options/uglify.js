@@ -5,8 +5,8 @@ module.exports = {
     config: config,
     dist: {
         files: {
-            '<%= uglify.config.dist %>/scripts/scripts.js': [
-                '<%= uglify.config.dist %>/scripts/scripts.js'
+            '<%= uglify.config.appDest %>/scripts/scripts.js': [
+                '<%= uglify.config.appDest %>/scripts/scripts.js'
             ]
         }
     }

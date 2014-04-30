@@ -7,7 +7,7 @@ module.exports = {
     config: config,
     dist: {
         files: {
-            '<%= cssmin.config.dist %>/styles/result.css': [
+            '<%= cssmin.config.appDest %>/styles/app.css': [
                 '.tmp/styles/{,*/}*.css',
                 '<%= cssmin.config.app %>/styles/{,*/}*.css'
             ]
