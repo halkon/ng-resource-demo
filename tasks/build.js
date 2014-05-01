@@ -12,13 +12,12 @@ module.exports = function (grunt) {
             //'ngmin',
             'less',
             'cssmin',
-            //'uglify',
             'rev',
             'usemin',
-            // 'docs',
-            // //'shell:commitPush',
-            // 'copy:plato',
-            // 'copyCoverage',
+            'docs',
+            'shell:commitPush',
+            'copy:plato',
+            'copyCoverage'
         ]
     );
 };
