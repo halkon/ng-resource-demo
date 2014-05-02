@@ -5,6 +5,9 @@ module.exports = {
     dev: {
         singleRun: false
     },
+    watch: {
+        background:true
+    },
     single: {
         singleRun: true
     },

@@ -1,13 +1,15 @@
 var config = require('../util/config.js');
 
 module.exports = {
-    config: config,
+    options: {
+    	config: config
+    },
     dist: {
         files: [{
             expand: true,
-            cwd: '<%= svgmin.config.app %>/images',
+            cwd: '<%= svgmin.options.config.app %>/images',
             src: '{,*/}*.svg',
-            dest: '<%= svgmin.config.dist %>/images'
+            dest: '<%= svgmin.options.config.dist %>/images'
         }]
     }
 };

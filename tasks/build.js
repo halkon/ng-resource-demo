@@ -9,16 +9,15 @@ module.exports = function (grunt) {
             'concurrent:dist',
             'concat',
             'copy:dist',
-            'ngmin',
+            //'ngmin',
             'less',
             'cssmin',
-            'uglify',
             'rev',
             'usemin',
             'docs',
-            //'shell:commitPush',
+            'shell:commitPush',
             'copy:plato',
-            'copyCoverage',
+            'copyCoverage'
         ]
     );
 };

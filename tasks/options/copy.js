@@ -8,33 +8,38 @@ module.exports = {
             expand: true,
             dot: true,
             cwd: '<%= copy.config.app %>',
-            dest: '<%= copy.config.dist %>',
+            dest: '<%= copy.config.appDest %>',
             src: [
                 '*.{ico,png,txt}',
                 '.htaccess',
-                'images/{,*/}*.{gif,webp}',
+                'images/{,**/}*.{gif,webp}',
                 'fonts/*',
                 'views/**/*',
                 '*.html',
                 'widgets/**/*',
                 'modules/**/*',
-                'bower_components/**/*',
-                'scripts/**/*'
+                '!scripts/**/*.spec.js'
             ]
         }, {
             expand: true,
             cwd: '.tmp/images',
-            dest: '<%= copy.config.dist %>/images',
+            dest: '<%= copy.config.appDest %>/images',
             src: [
                 'generated/*'
             ]
         }]
     },
+    app: {
+        expand:true,
+        cwd: '<%= copy.config.app %>',
+        src: ['**', '!**/*.spec.js', '!**/*.less'],
+        dest: '<%= copy.config.appDest %>/'
+    },
     plato: {
         files:[{
             expand: true,
             dot: true,
-            dest: '<%= copy.config.dist %>',
+            dest: '<%= copy.config.appDest %>',
             src: [
                 'report/**/*'
             ]
