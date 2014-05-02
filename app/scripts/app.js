@@ -33,7 +33,7 @@ angular.module('encoreApp', ['ngRoute', 'ngResource', 'encore.ui', 'encore.ui.rx
 
         $scope.user = {};
         $scope.login = function () {
-            authenticate($scope.user, function (data) {
+            return authenticate($scope.user, function (data) {
                 Auth.storeToken(data);
             }, function (error) {
                 rxNotify.add('Invalid Username or RSA Token', { type: 'warning' });
