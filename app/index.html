@@ -26,8 +26,7 @@
     <div ng-controller="LoginModalCtrl">
         <div ng-if="environment === 'local'" style='background: #1a1a1a'>
             <rx-modal-action
-                pre-hook="populate(this)"
-                post-hook="changePass(fields)"
+                post-hook="login(user)"
                 template-url="modalLogin.html">
                 <button>Login</button>
             </rx-modal-action>
