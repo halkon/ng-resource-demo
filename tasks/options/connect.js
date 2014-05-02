@@ -1,42 +1,11 @@
-var config = require('../util/config.js'),
-    appLocalRewrite = {};
-
-appLocalRewrite['/'+config.appName] = '';
+var config = require('../util/config.js');
 
 module.exports = {
     options: {
         port: 9000,
         hostname: 'localhost'
     },
-    proxies: [
-        {
-            context: '/' + config.appName,
-            host: 'localhost',
-            port: 9000,
-            rewrite: appLocalRewrite
-        },
-        {
-            context: '/api',
-            host: 'localhost',
-            port: 3000,
-            https: false,
-            changeOrigin: false,
-            rewrite: {
-                '/api': '/api'
-            }
-        },
-        {
-            context: '/api/identity',
-            host: 'identity.api.rackspacecloud.com',
-            port: 443,
-            https: true,
-            xforward: true,
-            changeOrigin: true,
-            rewrite: {
-                'identity': '/v2.0'
-            }
-        }
-    ],
+    proxies: [].concat(config.defaultProxies),
     livereload: {
         options: {
             middleware: function (cnct) {
