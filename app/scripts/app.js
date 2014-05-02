@@ -31,6 +31,7 @@ angular.module('encoreApp', ['ngRoute', 'ngResource', 'encore.ui', 'encore.ui.rx
             return Auth.loginWithJSON(body, success, error);
         };
 
+        $scope.user = {};
         $scope.login = function () {
             authenticate($scope.user, function (data) {
                 Auth.storeToken(data);
