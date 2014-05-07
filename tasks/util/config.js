@@ -19,6 +19,21 @@ module.exports = {
     },
     defaultProxies: [
         {
+            context: '/login',
+            host: 'staging.en.core.rackspace.com',
+            port: 443,
+            https: true,
+            protocol: 'https',
+            xforward: true,
+            changeOrigin: false,
+            rewrite: {
+                // Routes all login dependencies
+                '^/login/*': '/login/',
+                // Route login to index to avoid redirects
+                '^/login/?$': '/login/index.html'
+            }
+        },
+        {
             context: '/' + appName,
             host: 'localhost',
             port: 9000,
