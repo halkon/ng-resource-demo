@@ -24,7 +24,6 @@ module.exports = {
             port: 443,
             https: true,
             protocol: 'https',
-            xforward: true,
             changeOrigin: false,
             rewrite: {
                 // Routes all login dependencies
