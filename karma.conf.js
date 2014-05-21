@@ -48,6 +48,13 @@ module.exports = function(config) {
             dir : '../coverage/'
         },
 
+        thresholdReporter: {
+            statements: 90,
+            branches: 60,
+            functions: 85,
+            lines: 90
+        },
+
         // web server port
         port: 9876,
 
