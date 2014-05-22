@@ -41,11 +41,18 @@ module.exports = function(config) {
 
         // test results reporter to use
         // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
-        reporters: ['progress', 'coverage'],
+        reporters: ['progress', 'coverage', 'threshold'],
 
         coverageReporter: {
             type : 'html',
             dir : '../coverage/'
+        },
+
+        thresholdReporter: {
+            statements: 90,
+            branches: 60,
+            functions: 85,
+            lines: 90
         },
 
         // web server port

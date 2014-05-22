@@ -32,6 +32,7 @@
     "karma-phantomjs-launcher": "^0.1.2",
     "karma-requirejs": "^0.2.1",
     "karma-sinon-chai": "^0.1.0",
+    "karma-threshold-reporter": "~0.1.7",
     "load-grunt-tasks": "^0.3.0",
     "lodash": "^2.4.1",
     "mocha": "^1.17.0",
