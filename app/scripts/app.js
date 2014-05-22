@@ -14,7 +14,7 @@ angular.module('encoreApp', ['ngRoute', 'ngResource', 'encore.ui', 'encore.ui.rx
         $locationProvider.html5Mode(true).hashPrefix('!');
         $httpProvider.interceptors.push('TokenInterceptor'); //Injects auth token id into api calls
         $httpProvider.interceptors.push('UnauthorizedInterceptor'); //Redirects user to login page on 401
-    }).run(function ($http, $rootScope, $window, Auth, Environment) {
+    }).run(function ($http, $window, Auth, Environment) {
         var environment = Environment.get().name;
 
         if (environment !== 'local' && !Auth.isAuthenticated()) {
@@ -23,8 +23,6 @@ angular.module('encoreApp', ['ngRoute', 'ngResource', 'encore.ui', 'encore.ui.rx
 
         // Forces JSON only
         $http.defaults.headers.common['Accept'] = 'application/json';
-
-        $rootScope.userName = Auth.getUserName();
 
     }).controller('LoginModalCtrl', function ($scope, Auth, Environment, rxNotify) {
         $scope.environment = Environment.get().name;
