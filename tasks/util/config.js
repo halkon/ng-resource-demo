@@ -41,7 +41,7 @@ module.exports = {
         {
             context: '/api/identity',
             // Point to the identity host relevant to the project
-            host: 'identity.api.rackspacecloud.com',
+            host: 'staging.identity-internal.api.rackspacecloud.com',
             port: 443,
             https: true,
             xforward: true,
