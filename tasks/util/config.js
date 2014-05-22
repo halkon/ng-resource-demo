@@ -67,7 +67,7 @@ module.exports = {
             https: true,
             changeOrigin: true,
             rewrite: {
-                '/api/support-service': '/api'
+                '/api/support': '/api'
             }
         },
         { // Default catch all for all stubbed out API's
