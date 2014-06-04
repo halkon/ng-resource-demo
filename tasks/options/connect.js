@@ -5,7 +5,15 @@ module.exports = {
         port: 9000,
         hostname: 'localhost'
     },
-    proxies: [].concat(config.defaultProxies),
+
+    live: {
+        proxies: [].concat(config.defaultProxies),
+    },
+
+    mocked: {
+        proxies: [].concat(config.mockedProxies).concat(config.defaultProxies),
+    },
+
     livereload: {
         options: {
             middleware: function (cnct) {
@@ -19,6 +27,7 @@ module.exports = {
             }
         }
     },
+
     test: {
         options: {
             middleware: function (cnct) {
@@ -32,6 +41,7 @@ module.exports = {
             }
         }
     },
+
     dist: {
         options: {
             middleware: function (cnct) {
@@ -41,6 +51,7 @@ module.exports = {
             }
         }
     },
+
     docs: {
         options: {
             middleware: function (cnct) {
