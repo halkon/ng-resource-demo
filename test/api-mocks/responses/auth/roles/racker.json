@@ -1,0 +1,67 @@
+'{
+    "routes": [
+        {
+            "methods": [
+                "GET"
+            ],
+            "pattern": ".*"
+        },
+        {
+            "methods": [
+                "POST",
+                "PUT"
+            ],
+            "pattern": "^/v1/(dedicated-|shared-)?vcenters/\d+/(hypervisor(s|-clusters))"
+        },
+        {
+            "methods": [
+                "POST"
+            ],
+            "pattern": "/v1/login"
+        },
+        {
+            "methods": [
+                "DELETE"
+            ],
+            "pattern": "/v1/logout"
+        },
+        {
+            "methods": [
+                "PUT"
+            ],
+            "pattern": "^/v1/(shared-|management-|compute-)?hypervisors/\d+/vms"
+        },
+        {
+            "methods": [
+                "POST"
+            ],
+            "pattern": "^/v1/(management-|shared-)vms/\d+/uuid"
+        },
+        {
+            "methods": [
+                "PUT"
+            ],
+            "pattern": "^/v1/(compute-|management-|shared-)?hypervisors/\d+$"
+        },
+        {
+            "methods": [
+                "POST",
+                "PUT"
+            ],
+            "pattern": "^/v1/(compute-|management-|shared-)?hypervisor-clusters/\d+/hypervisors"
+        },
+        {
+            "methods": [
+                "POST"
+            ],
+            "pattern": "^/v1/(compute-|management-|shared-)?hypervisors/\d+/uuid"
+        },
+        {
+            "methods": [
+                "POST",
+                "PUT"
+            ],
+            "pattern": "^/v1/(management-|shared-)vms/\d+$"
+        }
+    ]
+}'
