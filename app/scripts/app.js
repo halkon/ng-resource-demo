@@ -24,25 +24,4 @@ angular.module('encoreApp', ['ngRoute', 'ngResource', 'encore.ui', 'encore.ui.rx
         // Forces JSON only
         $http.defaults.headers.common['Accept'] = 'application/json';
 
-    }).controller('LoginModalCtrl', function ($scope, Auth, Environment, rxNotify) {
-        $scope.environment = Environment.get().name;
-
-        var authenticate = function (credentials, success, error) {
-            //override the body here
-            var body = {
-            };
-
-            return Auth.loginWithJSON(body, success, error);
-        };
-
-        $scope.user = {};
-        $scope.login = function () {
-            return authenticate($scope.user, function (data) {
-                Auth.storeToken(data);
-            }, function (error) {
-                rxNotify.add('Invalid Username or RSA Token', { type: 'warning' });
-                $scope.user.token = '';
-                console.log(error);
-            });
-        };
     });

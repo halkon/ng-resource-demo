@@ -23,32 +23,6 @@
         <ng-view></ng-view>
     </rx-app>
 
-    <div ng-controller="LoginModalCtrl">
-        <div ng-if="environment === 'local'" style='background: #1a1a1a'>
-            <rx-modal-action
-                post-hook="login(user)"
-                template-url="modalLogin.html">
-                <button>Login</button>
-            </rx-modal-action>
-            <script type="text/ng-template" id="modalLogin.html">
-                <rx-modal-form title="Login">
-                    <rx-form-input
-                        type="text"
-                        required="true"
-                        label="SSO Username"
-                        field-id="username"
-                        model="user.username"></rx-form-input>
-
-                    <rx-form-input
-                        type="password"
-                        required="true"
-                        label="RSA Token"
-                        field-id="token"
-                        model="user.token"></rx-form-input>
-                </rx-modal-form>
-            </script>
-        </div>
-    </div>
     <!-- build:js /template/scripts/plugins.js -->
     <!-- endbuild -->
 
