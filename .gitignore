@@ -6,6 +6,7 @@ dist
 .sass-cache
 coverage
 app/bower_components
+report
 *.sw*
 captures/*
 .DS_Store
