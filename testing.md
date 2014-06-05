@@ -96,7 +96,15 @@ For both Midway and E2E tests, we use a Page Object library called [Astrolabe](h
 
 Goal: Validate our appplication in isolation from its dependencies (e.g. API Server)
 
-In order to run the midway test suite, you will need a selenium server running. To install and run selenium, see [Selenium setup with remote drivers](http://docs.seleniumhq.org/docs/03_webdriver.jsp#running-standalone-selenium-server-for-use-with-remotedrivers).
+In order to run the midway test suite, you will need a selenium server running.
+If you have homebrew installed, you can get a selenium webdriver running with:
+
+```
+$> brew install selenium-server
+$> selenium-server
+```
+
+If you're running Windows or Linux, see [Selenium setup with remote drivers](http://docs.seleniumhq.org/docs/03_webdriver.jsp#running-standalone-selenium-server-for-use-with-remotedrivers).
 
 Once you have selenium installed, you need to install [Protractor](https://github.com/angular/protractor/), the Angular Selenium Driver. Do that by running:
 
@@ -108,13 +116,15 @@ Server mocks are done using Stub.by. Server stubs are stored in the frontend/tes
 
 In order to correctly run the midway tests you will need to keep this running in the background, so open a new terminal after running this command. 
 
-When you have your new terminal open, run the tests by entering `grunt test:mid`. 
+    protractor test/protractor.conf.js
+
+You can also create a `test/protractor.conf.local.js` file to use when you need dev-specific settings that you don't want used in the CICD builds.
 
 #### Testing Individual Pages
 
 When developing a specific page, it's much quicker to run tests only for that page (rather than run the entire suite every time). In order to limit the tests to just that page, pass in path to the file to test as the third option in your grunt command. For example:
 
-`grunt test:mid:test/midway/cloudDetailPage.js`
+`protractor test/protractor.conf.js --specs=test/midway/cloudDetailPage.js`
 
 ### E2E Tests
 
