@@ -22,6 +22,7 @@ module.exports = function(config) {
             'http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.js',
             'bower_components/encore-ui/encore-ui-tpls.min.js',
             'bower_components/lodash/dist/lodash.js',
+            'scripts/app.js', // always load app definition first
             'scripts/**/*.js',
             '../test/browser-helpers.js',
             'views/**/*.html',// templates
