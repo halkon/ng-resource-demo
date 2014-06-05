@@ -1,15 +1,12 @@
 module.exports = function (grunt) {
-    grunt.registerTask('test', 'Runs unit and midway tests - grunt unit:dev will run continously',
-        function(type, file) {
-        var protractorFile = file ? ':' + file : '';
+    grunt.registerTask('test', 'Runs unit tests - grunt unit:dev will run continously',
+        function(type) {
 
         // define types of tests to run
         var types = {
             'unit': 'karma:single',
-            'dev': 'karma:dev',
-            'mid': ['shell:protractor' + protractorFile]
+            'dev': 'karma:dev'
         };
-
 
         // set default to run unit and func test a single time
         var tasks = [types.unit].concat(types.mid);
