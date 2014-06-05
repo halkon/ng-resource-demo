@@ -64,7 +64,8 @@
     "fs-extra": "^0.8.1",
     "grunt-stubby": "~0.1.4",
     "stubby": "~0.2.3",
-    "styledocco": "^0.6.6"
+    "styledocco": "^0.6.6",
+    "rx-page-objects": "https://95c7050854423f809e66-6999ba0e7a4f47d417515fb3f08fa9b8.ssl.cf1.rackcdn.com/rx-page-objects-0.10.0.tgz"
   },
   "repository": {
     "type": "git",
