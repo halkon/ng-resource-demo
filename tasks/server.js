@@ -9,14 +9,16 @@ module.exports = function (grunt) {
                 'jscs',
                 'karma:watch',
                 'less',
-                'configureProxies',
-                'connect:livereload'
+                'connect:livereload',
+                'configureProxies:live'
             ];
 
             if (target === 'dist') {
                 return grunt.task.run(['build', 'open', 'connect:dist:keepalive']);
             } else if (target === 'stubbed') {
                 commonTasks.unshift('stubby');
+                commonTasks.pop();
+                commonTasks.push('configureProxies:mocked');
                 if (watch === 'watch' || watch === 'true') {
                     commonTasks.push('open');
                     commonTasks.push('watch');

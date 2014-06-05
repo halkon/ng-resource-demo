@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css">
 
     <!-- build:css /template/styles/app.css -->
+    <link rel="stylesheet" href="bower_components/encore-ui/encore-ui.css">
     <link rel="stylesheet" href="styles/app.css">
     <!-- endbuild -->
 </head>
@@ -22,32 +23,6 @@
         <ng-view></ng-view>
     </rx-app>
 
-    <div ng-controller="LoginModalCtrl">
-        <div ng-if="environment === 'local'" style='background: #1a1a1a'>
-            <rx-modal-action
-                post-hook="login(user)"
-                template-url="modalLogin.html">
-                <button>Login</button>
-            </rx-modal-action>
-            <script type="text/ng-template" id="modalLogin.html">
-                <rx-modal-form title="Login">
-                    <rx-form-input
-                        type="text"
-                        required="true"
-                        label="SSO Username"
-                        field-id="username"
-                        model="user.username"></rx-form-input>
-
-                    <rx-form-input
-                        type="password"
-                        required="true"
-                        label="RSA Token"
-                        field-id="token"
-                        model="user.token"></rx-form-input>
-                </rx-modal-form>
-            </script>
-        </div>
-    </div>
     <!-- build:js /template/scripts/plugins.js -->
     <!-- endbuild -->
 
