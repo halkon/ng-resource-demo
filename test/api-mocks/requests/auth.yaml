@@ -1,7 +1,14 @@
 -   request:
         url: ^/api/identity/tokens$
         method: POST
-        post: '{"auth":{"RAX-AUTH:domain":{"name":"Rackspace"},"passwordCredentials":{"username":"racker","password":"pass"}}}'
+        post: '{"auth":{"RAX-AUTH:domain":{"name":"Rackspace"},"RAX-AUTH:rsaCredentials":{"username":"racker","tokenKey":"pass"}}}'
+    response:
+        https://staging.identity-internal.api.rackspacecloud.com/v2.0/tokens
+
+-   request:
+        url: ^/api/identity/tokens$
+        method: POST
+        post: '{"auth":{"RAX-AUTH:domain":{"name":"Rackspace"},"RAX-AUTH:rsaCredentials":{"username":"racker","tokenKey":"pass"}}}'
     response:
         status: 200
         body: '{"access": {"token": {"expires": "2099-05-09T20:19:16.614Z","id": "racker"},"user": {"id": "racker"}}}'
@@ -21,7 +28,7 @@
 -   request:
         url: ^/api/identity/tokens$
         method: POST
-        post: '{"auth":{"RAX-AUTH:domain":{"name":"Rackspace"},"passwordCredentials":{"username":"admin","password":"pass"}}}'
+        post: '{"auth":{"RAX-AUTH:domain":{"name":"Rackspace"},"RAX-AUTH:rsaCredentials":{"username":"admin","tokenKey":"pass"}}}'
     response:
         status: 200
         body: '{"access": {"token": {"expires": "2099-05-09T20:19:16.614Z","id": "racker"},"user": {"id": "admin"}}}'
@@ -41,7 +48,7 @@
 -   request:
         url: ^/api/identity/tokens$
         method: POST
-        post: '{"auth":{"RAX-AUTH:domain":{"name":"Rackspace"},"passwordCredentials":{"username":"architect","password":"pass"}}}'
+        post: '{"auth":{"RAX-AUTH:domain":{"name":"Rackspace"},"RAX-AUTH:rsaCredentials":{"username":"architect","tokenKey":"pass"}}}'
     response:
         status: 200
         body: '{"access": {"token": {"expires": "2099-05-09T20:19:16.614Z","id": "racker"},"user": {"id": "architect"}}}'
@@ -62,7 +69,7 @@
 -   request:
         url: ^/api/identity/tokens$
         method: POST
-        post: '{"auth":{"RAX-AUTH:domain":{"name":"Rackspace"},"passwordCredentials":{"username":"systemuser","password":"pass"}}}'
+        post: '{"auth":{"RAX-AUTH:domain":{"name":"Rackspace"},"RAX-AUTH:rsaCredentials":{"username":"systemuser","tokenKey":"pass"}}}'
     response:
         status: 200
         body: '{"access": {"token": {"expires": "2099-05-09T20:19:16.614Z","id": "racker"},"user": {"id": "systemuser"}}}'
