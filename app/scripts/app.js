@@ -15,7 +15,7 @@ angular.module('encoreApp', ['ngRoute', 'ngResource', 'encore.ui', 'encore.ui.rx
         $httpProvider.interceptors.push('TokenInterceptor'); //Injects auth token id into api calls
         $httpProvider.interceptors.push('UnauthorizedInterceptor'); //Redirects user to login page on 401
     }).run(function ($rootScope, $http, $window, Auth) {
-        $rootScope.$on('$locationChangeStart', function () {
+        $rootScope.$on('$routeChangeStart', function () {
             if (!Auth.isAuthenticated()) {
                 $window.location = '/login?redirect=' + $window.location.pathname;
                 return;
