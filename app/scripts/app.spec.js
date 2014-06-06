@@ -25,8 +25,12 @@ describe('Encore: app', function () {
 
     it('should do default auth functions', function () {
         sinon.assert.notCalled(auth.isAuthenticated);
+        expect($window.location).to.be.empty;
+
         root.$broadcast('$routeChangeStart');
         sinon.assert.calledOnce(auth.isAuthenticated);
+        expect($window.location.indexOf('/login')).to.be.eq(0);
+
         root.$broadcast('$routeChangeStart');
         sinon.assert.calledTwice(auth.isAuthenticated);
     });
