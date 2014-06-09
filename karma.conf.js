@@ -24,6 +24,7 @@ module.exports = function(config) {
             'bower_components/lodash/dist/lodash.js',
             'bower_components/mousetrap/mousetrap.js',
             'bower_components/momentjs/moment.js',
+            'scripts/app.js', // always load app definition first
             'scripts/**/*.js',
             '../test/browser-helpers.js',
             'views/**/*.html',// templates
