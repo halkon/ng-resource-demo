@@ -1,5 +1,5 @@
 # Status
-[![Build Status](https://drone.io/github.com/rackerlabs/encore-ui-bootstrap/status.png)](https://drone.io/github.com/rackerlabs/encore-ui-bootstrap/latest)
+[![Build Status](https://drone.io/github.com/rackerlabs/encore-ui-template/status.png)](https://drone.io/github.com/rackerlabs/encore-ui-template/latest)
 
 # Folder Structure
 
