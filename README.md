@@ -1,6 +1,3 @@
-# Status
-[![Build Status](https://drone.io/github.com/rackerlabs/encore-ui-bootstrap/status.png)](https://drone.io/github.com/rackerlabs/encore-ui-bootstrap/latest)
-
 # Folder Structure
 
     app/                  # actual app code is stored here
