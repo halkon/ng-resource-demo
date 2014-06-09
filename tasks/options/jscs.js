@@ -19,7 +19,8 @@ module.exports = {
 
     tests: {
         files: {
-            src: [ 'test/**/*.js' ]
+            src: [ 'test/pages/**/*.js',
+                   'test/stories/**/*.js' ]
         }
     }
 };
