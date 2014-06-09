@@ -5,7 +5,7 @@ describe('Encore: app', function () {
     // Hijack $window service to not allow page changes
     beforeEach(module(function ($provide) {
         $window = {
-            location: {}
+            location: '/template'
         };
         $provide.constant('$window', $window);
     }));
@@ -25,13 +25,10 @@ describe('Encore: app', function () {
 
     it('should do default auth functions', function () {
         sinon.assert.notCalled(auth.isAuthenticated);
-        expect($window.location).to.be.empty;
+        expect($window.location).to.be.equal('/template');
 
         root.$broadcast('$routeChangeStart');
-        sinon.assert.calledOnce(auth.isAuthenticated);
-        expect($window.location.indexOf('/login')).to.be.eq(0);
-
-        root.$broadcast('$routeChangeStart');
-        sinon.assert.calledTwice(auth.isAuthenticated);
+        sinon.assert.notCalled(auth.isAuthenticated);
+        expect($window.location.indexOf('/login')).to.be.eq(-1);
     });
 });
