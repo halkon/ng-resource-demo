@@ -18,7 +18,7 @@
     "grunt-contrib-watch": "^0.5.0",
     "grunt-conventional-changelog": "^1.1.0",
     "grunt-html2js": "^0.2.4",
-    "grunt-jscs-checker": "^0.3.2",
+    "grunt-jscs-checker": "^0.4.4",
     "grunt-karma": "^0.6.2",
     "grunt-ngdocs": "^0.2.1",
     "grunt-ngmin": "^0.0.2",

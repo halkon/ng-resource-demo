@@ -90,7 +90,6 @@
         "!=",
         "!=="
     ],
-    "requireCamelCaseOrUpperCaseIdentifiers": true,
     "disallowMultipleLineBreaks": true,
     "disallowKeywordsOnNewLine": ["else"],
     "validateJSDoc": {
