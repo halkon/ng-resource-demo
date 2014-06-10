@@ -100,7 +100,7 @@ In order to run the midway test suite, you will need a selenium server running.
 If you have homebrew installed, you can get a selenium webdriver running with:
 
 ```
-$> brew install selenium-server
+$> brew install selenium-server-standalone
 $> selenium-server
 ```
 
@@ -129,3 +129,35 @@ When developing a specific page, it's much quicker to run tests only for that pa
 ### E2E Tests
 
 Goal: Validate our app & all dependencies work in correlation as expected
+
+#### Setting up E2E tests on Jenkins
+
+First, set your github pull settings, build triggers, and the post-build notifications for the build status, hipchat, etc.
+
+Here is a list of what you might want to set up:
+
+ 1. Hipchat Notifications
+ - Parameterized Build (String parameter = "sha1")
+ - Source Code Management
+ - Build Triggers (GitHub pull requests builder)
+ - Build Environment (Color ANSI Console Output, ANSI color map = xterm)
+ - Execute Shell (see below for information about `jenkins.example.sh`)
+ - Post build actions (Publish HTML reports, HipChat notifications, build status on Github, Delete Workspace)
+
+
+You can use the [starter jenkins CICD script](./test/jenkins.example.sh) for the *"Execute shell"* step.
+
+Be sure to set the workspace [to be deleted after each build ends](https://wiki.jenkins-ci.org/display/JENKINS/Workspace+Cleanup+Plugin), regardless of whether or not it was a success or failure.
+
+You'll need to *exclude* the following directories and files from this cleanup process:
+
+ - report/\**
+ - coverage/\**
+
+Check the box that says *"Apply pattern also on directories"*.
+
+Next, you'll need to SSH into the server and edit the jenkins user's `~/secrets.js` file if necessary.
+
+For an example of what the bare minimum is for a secrets file, see [`test/secrets.example.js`](./test/secrets.example.js).
+
+Next, you'll want to set your app's redirect parameter in the `test/protractor.conf.js` file to point to the "main" page of your team's encore app. For instance, Ticket Queue's app would change `/template/home` to `/ticketing/list`.
