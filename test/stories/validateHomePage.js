@@ -1,17 +1,25 @@
-var homePage = require('../pages/HomePage'),
-    expect = require('../setupExpect').expect;
+var homePage = require('../pages/home.page');
+var loginPage = require('../pages/login.page');
 
-describe('HomePage: Validate page content', function () {
+var expect = require('../setupExpect');
+
+describe('Home Page', function () {
+
     before(function () {
-        homePage.go();
+        loginPage.go();
+        loginPage.login();
     });
 
-    it('Should display heading with correct content', function () {
-        expect(homePage.heading).to.eventually.exist;
-        expect(homePage.heading.getText()).to.eventually.eq('Hello Developer, I am a home page');
+    it('should display a page heading #smoke @dev', function () {
+        expect(homePage.title).to.eventually.equal('Home Page');
     });
 
-    it('Should be display scope variable', function () {
-        expect(homePage.hello.getText()).to.eventually.eq('Hello Developer, I am a home page');
+    it('should display a page subtitle #smoke @dev', function () {
+        expect(homePage.subtitle).to.eventually.equal('Subtitle Here');
     });
+
+    after(function () {
+        loginPage.logout();
+    });
+
 });
