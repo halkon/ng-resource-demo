@@ -31,7 +31,7 @@ module.exports = {
     defaultProxies: [
         {
             context: '/login',
-            host: 'staging.en.core.rackspace.com',
+            host: 'staging.encore.rackspace.com',
             port: 443,
             https: true,
             protocol: 'https',

@@ -1,7 +1,9 @@
 var Page = require('astrolabe').Page;
 var _ = require('lodash');
+var rest = require('restler');
 
 var homePage = require('./home.page');
+var defaultRoles = require('../roles');
 
 module.exports = Page.create({
     url: { get: function () { return '/login?redirect=' +  this.driver.params.loginRedirect; }},
@@ -84,7 +86,8 @@ module.exports = Page.create({
                 default:
                     break;
             }
-            this.enterLoginCredentials(username, password);
+            this.setLocalStorage(username, password);
+            this.go();
         }
     },
 
@@ -106,12 +109,72 @@ module.exports = Page.create({
         }
     },
 
+    setLocalStorage: {
+        // Makes a request to identity, and will set the token inside of a default set of user
+        // roles for reasonable staging tests. These will be written to local storage.
+        //
+        // The "roles" parameter, should you provide it, is a javascript object, which will be
+        // set in local storage. If it is not provided, the username will be used to look up a 
+        // set of default roles and those will be used instead.
+        value: function (username, password, roles) {
+            var page = this;
+            if (roles === undefined) {
+                roles = defaultRoles[username] || defaultRoles.racker;
+            }
+
+            roles.access.user.id = username;
+            this.getIdentityToken(username, password, function (data) {
+                roles.access.token.id = data.access.token.id;
+                var jsonRoles = JSON.stringify(roles);
+                /* jshint quotmark:true */
+                var script = "localStorage.setItem('encoreSessionToken', '" + jsonRoles + "');";
+                page.driver.executeScript(script);
+            });
+        }
+    },
+
+    getIdentityToken: {
+        value: function (username, password, callback) {
+            var page = this;
+            var json = {
+                auth: {
+                    'RAX-AUTH:domain': {
+                        name: 'Rackspace'
+                    },
+                    passwordCredentials: {
+                        username: username,
+                        password: password
+                    }
+                }
+            };
+
+            rest.post('https://staging.identity-internal.api.rackspacecloud.com/v2.0/tokens', {
+                data: JSON.stringify(json),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            }).on('complete', function (data, response) {
+                if (response.statusCode === 200) {
+                    callback(data);
+                } else {
+                    var msg = 'error authenticating as ' + username + '. Check password.';
+                    page.InvalidAuthException.thro(msg);
+                }
+            });
+        }
+    },
+
     logout: {
         value: function () {
             // TODO: Replace this with rxLogout's logout() function.
             // homepage.navigation.logout();
             homePage.navigation.lnkLogout.click();
         }
+    },
+
+    InvalidAuthException: {
+        get: function () { return this.exception('Invalid staging identity credentials'); }
     }
 
 });
