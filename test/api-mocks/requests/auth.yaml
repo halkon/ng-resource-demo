@@ -3,13 +3,6 @@
         method: POST
         post: '{"auth":{"RAX-AUTH:domain":{"name":"Rackspace"},"RAX-AUTH:rsaCredentials":{"username":"racker","tokenKey":"pass"}}}'
     response:
-        https://staging.identity-internal.api.rackspacecloud.com/v2.0/tokens
-
--   request:
-        url: ^/api/identity/tokens$
-        method: POST
-        post: '{"auth":{"RAX-AUTH:domain":{"name":"Rackspace"},"RAX-AUTH:rsaCredentials":{"username":"racker","tokenKey":"pass"}}}'
-    response:
         status: 200
         body: '{"access": {"token": {"expires": "2099-05-09T20:19:16.614Z","id": "racker"},"user": {"id": "racker"}}}'
         headers:

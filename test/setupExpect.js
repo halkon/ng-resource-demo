@@ -1,3 +1,1 @@
-module.exports = {
-    expect: require('chai').use(require('chai-as-promised')).expect
-};
+module.exports = require('chai').use(require('chai-as-promised')).expect;

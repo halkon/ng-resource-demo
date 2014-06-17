@@ -29,6 +29,6 @@ describe('Encore: app', function () {
 
         root.$broadcast('$routeChangeStart');
         sinon.assert.notCalled(auth.isAuthenticated);
-        expect($window.location.indexOf('/login')).to.be.eq(-1);
+        expect($window.location).to.not.be.eq('/login');
     });
 });
