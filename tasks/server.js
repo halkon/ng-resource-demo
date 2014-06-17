@@ -14,7 +14,7 @@ module.exports = function (grunt) {
             ];
 
             if (target === 'dist') {
-                return grunt.task.run(['build', 'open', 'connect:dist:keepalive']);
+                return grunt.task.run(['build', 'open', 'configureProxies:live', 'connect:dist:keepalive']);
             } else if (target === 'stubbed') {
                 commonTasks.unshift('stubby');
                 commonTasks.pop();
