@@ -46,6 +46,8 @@ module.exports = {
         options: {
             middleware: function (cnct) {
                 return [
+                    config.proxyRequest,
+                    config.modRewrite(['!\\.[0-9a-zA-Z_-]+$ /index.html']),
                     config.mountFolder(cnct, config.appDest)
                 ];
             }
