@@ -5,6 +5,6 @@ module.exports = {
     options: {
         config: config,
         dirs: ['<%= usemin.options.config.appDest %>'],
-        assetsDirs: ['dist']
+        assetsDirs: ['dist', '<%= usemin.options.config.appDest %>']
     }
 };
