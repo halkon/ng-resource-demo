@@ -14,7 +14,6 @@ module.exports = function (grunt) {
             'rev',
             'usemin',
             'docs',
-            'shell:commitPush',
             'copy:plato',
             'copyCoverage'
         ]

@@ -4,7 +4,7 @@ module.exports = function (grunt) {
 
         this.async();
 
-        var styledocco = require('../node_modules/styledocco/cli.js');
+        var styledocco = require('styledocco/cli.js');
 
         styledocco(this.options());
     });
