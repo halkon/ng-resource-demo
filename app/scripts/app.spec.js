@@ -5,7 +5,8 @@ describe('Encore: app', function () {
     // Hijack $window service to not allow page changes
     beforeEach(module(function ($provide) {
         $window = {
-            location: '/template'
+            location: '/template',
+            document: [{ }]
         };
         $provide.constant('$window', $window);
     }));
