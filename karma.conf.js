@@ -20,6 +20,7 @@ module.exports = function(config) {
             'bower_components/angular-resource/angular-resource.js',
             'bower_components/angular-route/angular-route.js',
             'bower_components/angular-sanitize/angular-sanitize.js',
+            'bower_components/angular-hotkeys/build/hotkeys.js',
             'http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.js',
             'bower_components/encore-ui/encore-ui-tpls.min.js',
             'bower_components/lodash/dist/lodash.js',
@@ -45,7 +46,7 @@ module.exports = function(config) {
 
         // test results reporter to use
         // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
-        reporters: ['progress', 'coverage', 'threshold'],
+        reporters: ['mocha', 'coverage', 'threshold'],
 
         coverageReporter: {
             type : 'html',
