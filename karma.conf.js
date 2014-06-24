@@ -28,6 +28,7 @@ module.exports = function(config) {
             'scripts/app.js', // always load app definition first
             'scripts/**/*.js',
             '../test/browser-helpers.js',
+            // '../test/window-hack.js', // Only load when preventing window.location redirects
             'views/**/*.html',// templates
         ],
 
