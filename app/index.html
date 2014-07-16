@@ -1,12 +1,11 @@
 <!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html ng-app="encoreApp">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Encore</title>
+
+    <link rel="icon" type="image/png" href="favicon.png" rx-favicon="{ local: 'favicon-local.png', staging: 'favicon-staging.png' }" />
 
     <!-- /template/ should be replaced throughout this file with the value of appName in config.js -->
     <base href="/template/">
@@ -18,7 +17,7 @@
     <link rel="stylesheet" href="styles/app.css">
     <!-- endbuild -->
 </head>
-  <body ng-app="encoreApp">
+  <body>
     <!-- Add your site or application content here -->
     <rx-app>
         <ng-view></ng-view>
