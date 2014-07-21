@@ -81,6 +81,17 @@ module.exports = {
                 '/api/support': '/api'
             }
         },
+        {
+            context: '/api/encore',
+            host: 'staging.encore.rackspace.com',
+            https: true,
+            port: 443,
+            xforward: true,
+            changeOrigin: true,
+            rewrite: {
+                '/api': '/api'
+            }
+        }
         { // Default catch all for all stubbed out API's
             context: '/api',
             host: 'localhost',
