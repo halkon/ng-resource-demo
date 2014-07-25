@@ -16,7 +16,7 @@ exports.config = {
     baseUrl: 'https://staging.encore.rackspace.com',
 
     specs: [
-        './stories/*.js'
+        '../stories/*.js'
     ],
 
     params: {
