@@ -15,7 +15,7 @@ exports.config = {
     baseUrl: 'http://localhost:9000',
 
     specs: [
-        './stories/*.js'
+        '../stories/*.js'
     ],
 
     params: {
