@@ -1,12 +1,15 @@
 var Page = require('astrolabe').Page;
 var _ = require('lodash');
 var rest = require('restler');
-
 var homePage = require('./home.page');
-var defaultRoles = require('../roles');
 
 module.exports = Page.create({
-    url: { get: function () { return '/login?redirect=' +  this.driver.params.loginRedirect; }},
+    url: {
+        get: function () {
+            var redirect = this.driver.params.loginRedirect || 'cloud';
+            return '/login/?redirect=' + redirect;
+        }
+    },
 
     txtUsername: {
         get: function () { return $('#username'); }
@@ -17,7 +20,7 @@ module.exports = Page.create({
     },
 
     btnSubmit: {
-        get: function () { return $('.button.primary'); }
+        get: function () { return $('.rx-button'); }
     },
 
     cssInvalidLogin: {
@@ -52,7 +55,7 @@ module.exports = Page.create({
         // This allows you to use the same `login()` function, without arguments, everywhere, and
         // still be authenticated as something.
         //
-        // If you use this function without arguments on staging, it will grab the first available 
+        // If you use this function without arguments on staging, it will grab the first available
         // username and password from `test/secrets.js`, and it will log you in using those.
         //
         // If you use this function with only one argument on staging, it will assume that is the username,
@@ -62,8 +65,11 @@ module.exports = Page.create({
         // arguments with the default mock username/password pair.
         value: function (username, password) {
             var page = this;
-            return this.driver.getCurrentUrl().then(function (url) {
-                if (/encore.rackspace.com/.test(url)) {
+            page.go();
+            return browser.driver.getCurrentUrl().then(function (url) {
+                if (!(/login/.test(url))) {
+                    return;
+                } else if (/encore.rackspace.com/.test(url)) {
                     page.loginStaging(username, password);
                 } else {
                     page.loginLocalhost(username, password);
@@ -86,8 +92,7 @@ module.exports = Page.create({
                 default:
                     break;
             }
-            this.setLocalStorage(username, password);
-            this.go();
+            this.loginWithToken(username, password);
         }
     },
 
@@ -109,33 +114,10 @@ module.exports = Page.create({
         }
     },
 
-    setLocalStorage: {
-        // Makes a request to identity, and will set the token inside of a default set of user
-        // roles for reasonable staging tests. These will be written to local storage.
-        //
-        // The "roles" parameter, should you provide it, is a javascript object, which will be
-        // set in local storage. If it is not provided, the username will be used to look up a 
-        // set of default roles and those will be used instead.
-        value: function (username, password, roles) {
+    loginWithToken: {
+        value: function (username, password) {
             var page = this;
-            if (roles === undefined) {
-                roles = defaultRoles[username] || defaultRoles.racker;
-            }
 
-            roles.access.user.id = username;
-            this.getIdentityToken(username, password, function (data) {
-                roles.access.token.id = data.access.token.id;
-                var jsonRoles = JSON.stringify(roles);
-                /* jshint quotmark:true */
-                var script = "localStorage.setItem('encoreSessionToken', '" + jsonRoles + "');";
-                page.driver.executeScript(script);
-            });
-        }
-    },
-
-    getIdentityToken: {
-        value: function (username, password, callback) {
-            var page = this;
             var json = {
                 auth: {
                     'RAX-AUTH:domain': {
@@ -147,7 +129,6 @@ module.exports = Page.create({
                     }
                 }
             };
-
             rest.post('https://staging.identity-internal.api.rackspacecloud.com/v2.0/tokens', {
                 data: JSON.stringify(json),
                 headers: {
@@ -156,12 +137,17 @@ module.exports = Page.create({
                 }
             }).on('complete', function (data, response) {
                 if (response.statusCode === 200) {
-                    callback(data);
+                    var addTokenToLocalStorage = function (token) {
+                        localStorage.setItem('encoreSessionToken', token);
+                    };
+
+                    page.driver.executeScript(addTokenToLocalStorage, JSON.stringify(data));
                 } else {
                     var msg = 'error authenticating as ' + username + '. Check password.';
                     page.InvalidAuthException.thro(msg);
                 }
             });
+            this.go();
         }
     },
 
@@ -175,6 +161,28 @@ module.exports = Page.create({
 
     InvalidAuthException: {
         get: function () { return this.exception('Invalid staging identity credentials'); }
-    }
+    },
+
+    isLoggedIn: {
+        value: function () {
+            this.go();
+            return $('rx-app').isPresent();
+        }
+    },
+
+    switchToUser: {
+        value: function (userName) {
+            this.driver.params.lastUser = this.driver.params.user;
+            this.driver.params.user = userName;
+        }
+    },
+
+    switchToLastUser: {
+        value: function () {
+            if (_.has(this.driver.params, 'lastUser')) {
+                this.driver.params.user = this.driver.params.lastUser;
+            }
+        }
+    },
 
 });
