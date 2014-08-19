@@ -1,87 +1,73 @@
-# Folder Structure
+# Encore-UI Template
 
-    app/                  # actual app code is stored here
-        scripts/
-            lib/          # 3rd-party libraries that aren't available via bower
-        bower_components/
-        fonts/
-        images/
-        styles/
-        views/            # HTML for pages
-            templates/    # HTML for directives
-        widgets/
-    test/
-        midway/
-        e2e/
-        pages/
-        api-mocks/
-    coverage/             # Code coverage stats built with
-    dist/                 # App code ready for
-    docs/                 # API docs generated via ngdoc
-    node_modules/
-    styleguide/           # CSS Style Guide
-    report/               # Plato code quality report
+This is a base template designed to get you started with building a new Angular application using the [Encore-UI](http://rackerlabs.github.io/encore-ui/#/overview) framework.
+There are a few things you should know about before you start coding.
 
-# How Files are Loaded
+### Folder Structure
 
-While it's in the roadmap to add lazy/module loading to Encore UI, currently this is not a feature of our framework. Instead, all JS files are loaded via `script` tags in the [index.html](./app/index.html) file. All CSS/LESS files are loaded via @import declarations via the [app.less](./app/styles/app.less) file.
+* All Javascript goes into `app/scripts`
+* All LESS files go into `app/styles`
+* HTML files are placed into `app/views`
+* HTML templates for directives go into `app/views/templates`
 
-This means that the any file used in Encore must be loaded on the initial download of the site, so **please be cognizant of this when adding large libraries/files**.
+### Development
 
-To add your files to Encore, simply edit either index.html (for JS) or app.less (for styles).
+Gulp is used for starting a development server and watching your files. Any changes made to files while in `watch` mode
+will trigger linting via JSHint and JSCS, a single pass of Karma, and a refresh in your browser via LiveReload.
 
-# Routes
+A Connect server is used to serve files from within the `app` folder, and
+Prism is being used as Connect middleware to offer proxy support for any API calls you need to make.
 
-URL routes are defined in [app.js](./app/scripts/app.js). To find out how to navigate to a specific page, look through the route definitions in that file.
+Gulp tasks can be found in `gulp/tasks`, and you are welcome to modify these as needed. You will likely only need to
+modify the following tasks:
 
-# Code Quality
+* `prism` -- This is where you will define your proxy endpoints.
 
-Plato is a very neat tool that helps measure the complexity of a codebase. It's currently setup to execute on every run of `grunt` or `grunt docs`. To
-view a report, simply open the index.html file in the 'report' directory.
+### Building
 
-# CSS Style Guide
+The `build` task is where Gulp will compile and minify all assets into a distributable format. All JS, CSS, HTML, and
+images will be compressed and placed into the `dist` folder under your app root folder.
 
-In an effort to create a "living" style guide, we've hooked up [StyleDocco](https://github.com/jacobrask/styledocco) into our LESS CSS files. To create the guide, run the following grunt command:
+### Getting Started
 
-`grunt styleguide`
+* `git clone https://github.com/rackerlabs/encore-ui-template {{yourAppName}}`
+* `cd {{yourAppName}}`
+* `npm install`
+* `bower install`
+* Set `config.appName` in package.json to `{{yourAppName}}`
+* Change the base href in `index.html` to `/{{yourAppName}}/`
+* Wire dependencies with `gulp wiredep`
+* Make sure that you are including the template cache module in your app.js dependencies (module name should be `{{yourAppName}}.tpls`)
+* Start local development server with `gulp server`
 
-To view the style guide, simply open the 'index.html' in the 'styleguide folder'.
+### Gulp Tasks
 
-Styleguides are automatically created when running `grunt docs` or `grunt build`.
+* `gulp wiredep` -- Injects Bower component paths into karma.conf.js and index.html. It also injects any Javascript files in `app/scripts` into your index.html.
+* `gulp server` -- Start development server and watch files for changes
+* `gulp server:record` -- Start server and record API responses into JSON files for mocking
+* `gulp server:mock` -- Start server and mock API responses using your recorded JSON files
+* `gulp karma:single` -- Run Karma in a single pass
+* `gulp karma:threshold` -- Run Karma in a single pass and fail if coverage is too low
+* `gulp build` -- Build distribution
 
-# Further Reading
 
- - [UI Setup](./ui-setup.md)
- - [Contribution Guide](./CONTRIBUTING.md)
- - [Architecture](./architecture.md)
- - [Testing](./testing.md)
- - [CSS Style Guide](./css.md)
- - [JS Style Guide](./js-styleguide.md)
+### Converting from Grunt Template
 
-# Deployment Workflow
+The previous iteration of this template used Grunt for running tasks. While this approach may still work, it is
+recommended that everyone move over to Gulp. The only files you need to modify are:
 
-1. Create VM
-2. Deploy to Test Server (QE)
-    1. *Run deploy script
-    2. *Run component tests and validate they all pass
-    3. Run midway tests (developer validates expected results (e.g. that failures are expected))
-    4. Run code coverage stats and store
-    5. Run image diff comparisons (developer validates expected results (e.g. that failures are expected))
-        - Override any stale image diffs (create new baseline images)
-3. Isolation Complete (QE Validated)
-    1. *Run midway tests and validate all were successful
-    2. *Run E2E:Smoke tests and validate successful
-    3. *Code merge to master
-    4. Tear down test server
-4. Deploy to Staging Server
-    1. *Run deploy script
-    2. *Run E2E:Smoke tests and verify they pass
-    3. Run E2E:Regression tests
-    4. Run image diff comparisons and validate all pass
-    5. *Tripwire (if any of the following criteria aren't met, halt deployment)
-        - Regression tests execute in less than 30 minutes
-        - % of tests run successfully (% to be defined)
-5. Prod - Ready
-    1. *Shiner Time
+* `karma.conf.js`
+* `index.html`
+* `app/scripts/app.js`
 
-Note: `*` marks something as a must-have
+Ensure that these files contain the proper comments necessary for Gulp inject and wiredep, and that you are including
+the template cache module in your app.js dependencies.
+
+### Testing
+
+We highly encourage writing unit tests for new code whenever possible. Karma is used to run tests, and coverage
+reports should be generated inside of the `coverage` folder. Tests should be using Mocha + Chai + Sinon:
+
+* [Mocha](http://visionmedia.github.io/mocha/)
+* [Chai](http://chaijs.com/)
+* [Sinon](http://sinonjs.org/)
