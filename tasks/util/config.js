@@ -91,7 +91,7 @@ module.exports = {
             rewrite: {
                 '/api': '/api'
             }
-        }
+        },
         { // Default catch all for all stubbed out API's
             context: '/api',
             host: 'localhost',
