@@ -78,6 +78,6 @@
   },
   "scripts": {
     "test": "grunt test",
-    "postinstall": "grunt shell:hooks"
+    "postinstall": "grunt hooks"
   }
 }
