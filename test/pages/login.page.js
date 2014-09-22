@@ -1,13 +1,13 @@
 var Page = require('astrolabe').Page;
 var _ = require('lodash');
 var rest = require('restler');
-var homePage = require('./home.page');
+
+var defaultRoles = require('../roles');
 
 module.exports = Page.create({
     url: {
         get: function () {
-            var redirect = this.driver.params.loginRedirect || 'cloud';
-            return '/login/?redirect=' + redirect;
+            return '/login?redirect=' +  browser.params.loginRedirect;
         }
     },
 
@@ -23,6 +23,12 @@ module.exports = Page.create({
         get: function () { return $('.rx-button'); }
     },
 
+    btnLogout: {
+        get: function () {
+            return $('[rx-logout]');
+        }
+    },
+
     cssInvalidLogin: {
         get: function () { return '.notification-text'; }
     },
@@ -35,16 +41,24 @@ module.exports = Page.create({
         get: function () {
             var page = this;
             return this.invalidNotificationIsDisplayed().then(function (isDisplayed) {
-                return isDisplayed ? page.lblInvalidLogin.getText() : '';
+                if (isDisplayed) {
+                    return page.lblInvalidLogin.getText();
+                } else {
+                    return protractor.promise.fulfilled('');
+                }
             });
         }
     },
 
     invalidNotificationIsDisplayed: {
         value: function () {
-            return $$(this.cssInvalidLogin).then(function (notifications) {
-                return notifications.length > 0;
-            });
+            return $(this.cssInvalidLogin).isPresent();
+        }
+    },
+
+    isLoggedIn: {
+        value: function () {
+            return this.btnLogout.isPresent();
         }
     },
 
@@ -65,11 +79,14 @@ module.exports = Page.create({
         // arguments with the default mock username/password pair.
         value: function (username, password) {
             var page = this;
-            page.go();
-            return browser.driver.getCurrentUrl().then(function (url) {
-                if (!(/login/.test(url))) {
+            this.go();
+            return browser.getCurrentUrl().then(function (url) {
+                if (!/login/.test(url)) {
+                    // Already logged in. Do nothing.
                     return;
-                } else if (/encore.rackspace.com/.test(url)) {
+                }
+
+                if (/encore.rackspace.com/.test(url)) {
                     page.loginStaging(username, password);
                 } else {
                     page.loginLocalhost(username, password);
@@ -83,16 +100,17 @@ module.exports = Page.create({
             var definedArgs = _.filter(arguments, function (arg) { return arg !== undefined; });
             switch (_.size(definedArgs)) {
                 case 0:
-                    username = _.first(_.keys(this.driver.params.logins));
-                    password = this.driver.params.logins[username];
+                    username = _.first(_.keys(browser.params.logins));
+                    password = browser.params.logins[username];
                     break;
                 case 1:
-                    password = this.driver.params.logins[username];
+                    password = browser.params.logins[username];
                     break;
                 default:
                     break;
             }
-            this.loginWithToken(username, password);
+            this.setLocalStorage(username, password);
+            this.go();
         }
     },
 
@@ -114,10 +132,33 @@ module.exports = Page.create({
         }
     },
 
-    loginWithToken: {
-        value: function (username, password) {
+    setLocalStorage: {
+        // Makes a request to identity, and will set the token inside of a default set of user
+        // roles for reasonable staging tests. These will be written to local storage.
+        //
+        // The "roles" parameter, should you provide it, is a javascript object, which will be
+        // set in local storage. If it is not provided, the username will be used to look up a
+        // set of default roles and those will be used instead.
+        value: function (username, password, roles) {
             var page = this;
+            if (roles === undefined) {
+                roles = defaultRoles[username] || defaultRoles.racker;
+            }
 
+            roles.access.user.id = username;
+            this.getIdentityToken(username, password, function (data) {
+                roles.access.token.id = data.access.token.id;
+                var addTokenToLocalStorage = function (token) {
+                    localStorage.setItem('encoreSessionToken', token);
+                };
+                page.driver.executeScript(addTokenToLocalStorage, JSON.stringify(roles));
+            });
+        }
+    },
+
+    getIdentityToken: {
+        value: function (username, password, callback) {
+            var page = this;
             var json = {
                 auth: {
                     'RAX-AUTH:domain': {
@@ -129,6 +170,7 @@ module.exports = Page.create({
                     }
                 }
             };
+
             rest.post('https://staging.identity-internal.api.rackspacecloud.com/v2.0/tokens', {
                 data: JSON.stringify(json),
                 headers: {
@@ -137,52 +179,23 @@ module.exports = Page.create({
                 }
             }).on('complete', function (data, response) {
                 if (response.statusCode === 200) {
-                    var addTokenToLocalStorage = function (token) {
-                        localStorage.setItem('encoreSessionToken', token);
-                    };
-
-                    page.driver.executeScript(addTokenToLocalStorage, JSON.stringify(data));
+                    callback(data);
                 } else {
                     var msg = 'error authenticating as ' + username + '. Check password.';
                     page.InvalidAuthException.thro(msg);
                 }
             });
-            this.go();
         }
     },
 
     logout: {
         value: function () {
-            // TODO: Replace this with rxLogout's logout() function.
-            // homepage.navigation.logout();
-            homePage.navigation.lnkLogout.click();
+            this.btnLogout.click();
         }
     },
 
     InvalidAuthException: {
         get: function () { return this.exception('Invalid staging identity credentials'); }
-    },
-
-    isLoggedIn: {
-        value: function () {
-            this.go();
-            return $('rx-app').isPresent();
-        }
-    },
-
-    switchToUser: {
-        value: function (userName) {
-            this.driver.params.lastUser = this.driver.params.user;
-            this.driver.params.user = userName;
-        }
-    },
-
-    switchToLastUser: {
-        value: function () {
-            if (_.has(this.driver.params, 'lastUser')) {
-                this.driver.params.user = this.driver.params.lastUser;
-            }
-        }
-    },
+    }
 
 });

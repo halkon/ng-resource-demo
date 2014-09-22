@@ -1,21 +1,26 @@
 var homePage = require('../pages/home.page');
 var loginPage = require('../pages/login.page');
 
-var expect = require('../setupExpect');
-
-describe('Home Page', function () {
+describe('Home Page @dev', function () {
 
     before(function () {
-        loginPage.go();
         loginPage.login();
     });
 
-    it('should display a page heading #smoke @dev', function () {
-        expect(homePage.title).to.eventually.equal('Home Page');
+    it('should have logged in', function () {
+        expect(loginPage.isLoggedIn()).to.eventually.be.true;
     });
 
-    it('should display a page subtitle #smoke @dev', function () {
-        expect(homePage.subtitle).to.eventually.equal('Subtitle Here');
+    it('should display a page heading', function () {
+        expect(encore.rxPage.main.title).to.eventually.equal('Home Page');
+    });
+
+    it('should display a page subtitle', function () {
+        expect(encore.rxPage.main.subtitle).to.eventually.equal('Subtitle Here');
+    });
+
+    it('should have a content heading', function () {
+        expect(homePage.contentTitle).to.eventually.equal('Page Title');
     });
 
     after(function () {

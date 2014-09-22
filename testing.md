@@ -74,7 +74,7 @@ When you're making a lot of unit test related changes, it's faster to leave Phan
 
 When developing a specific component, you likely don't want to run the entire test suite on every change. In order to test a single set of functionality, use the 'only' function when describing your test. For example:
 
-`describe.only('Login', function () { ... tests go here ... })`
+`describe.only('login', function () { ... tests go here ... })`
 
 **Be sure to remove the `only` once you're done.**
 
@@ -96,29 +96,29 @@ For both Midway and E2E tests, we use a Page Object library called [Astrolabe](h
 
 Goal: Validate our appplication in isolation from its dependencies (e.g. API Server)
 
-In order to run the midway test suite, you will need a selenium server running.
-If you have homebrew installed, you can get a selenium webdriver running with:
-
-```
-$> brew install selenium-server-standalone
-$> selenium-server
-```
-
-If you're running Windows or Linux, see [Selenium setup with remote drivers](http://docs.seleniumhq.org/docs/03_webdriver.jsp#running-standalone-selenium-server-for-use-with-remotedrivers).
-
-Once you have selenium installed, you need to install [Protractor](https://github.com/angular/protractor/), the Angular Selenium Driver. Do that by running:
+First, you'll need to install [Protractor](https://github.com/angular/protractor/), the Angular Selenium Driver. Do that by running:
 
     npm install -g protractor
+
+In order to run the midway test suite, you will need a selenium server running.
+If you have protractor installed, you can get a selenium webdriver running with:
+
+```
+$> webdriver-manager update
+$> webdriver-manager start
+```
 
 Server mocks are done using Stub.by. Server stubs are stored in the frontend/test/api-mocks folder. You need to ensure that you already have a development server running with Stub.by. If you haven't already, start up your stubbed server:
 
     grunt server:stubbed:watch
 
-In order to correctly run the midway tests you will need to keep this running in the background, so open a new terminal after running this command. 
+In order to correctly run the midway tests you will need to keep this running in the background, so open a new terminal after running this command.
 
-    protractor test/protractor.conf.js
+    protractor test/conf/protractor.conf.js
 
-You can also create a `test/protractor.conf.local.js` file to use when you need dev-specific settings that you don't want used in the CICD builds.
+You can also create a `test/conf/protractor.local.conf.js` file to use when you need dev-specific settings that you don't want used in the CICD builds. This also applies for `test/conf/protractor.local.e2e.conf.js` as well.
+
+This template ships with some useful functionality in `test/pages/login.page.js`, but everything else in the `test/stories` directory and the `test/pages` directory should be considered an example only, and should be deleted!
 
 #### Testing Individual Pages
 
@@ -160,4 +160,4 @@ Next, you'll need to SSH into the server and edit the jenkins user's `~/secrets.
 
 For an example of what the bare minimum is for a secrets file, see [`test/secrets.example.js`](./test/secrets.example.js).
 
-Next, you'll want to set your app's redirect parameter in the `test/protractor.conf.js` file to point to the "main" page of your team's encore app. For instance, Ticket Queue's app would change `/template/home` to `/ticketing/list`.
+Next, you'll want to set your app's redirect parameter in the `test/conf/protractor.conf.js` file to point to the "main" page of your team's encore app. For instance, Ticket Queue's app would change `/template/home` to `/ticketing/list`.
