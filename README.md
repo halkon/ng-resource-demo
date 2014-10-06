@@ -32,6 +32,8 @@ images will be compressed and placed into the `dist` folder under your app root 
 
 * `git clone https://github.com/rackerlabs/encore-ui-template {{yourAppName}}`
 * `cd {{yourAppName}}`
+* `rm -r .git`
+* `git init` -- This will make sure you aren't working out of the template repo.
 * `npm install`
 * `bower install`
 * Set `config.appName` in package.json to `{{yourAppName}}`
