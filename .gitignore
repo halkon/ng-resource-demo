@@ -14,6 +14,7 @@ styleguide
 # TODO Don't track generates CSS from LESS
 app/styles/app.css
 app/styles/app.css.map
+app/scripts/templates.js
 # Allow the option to use a local protractor conf
 test/conf/protractor.local.conf.js
 test/conf/protractor.local.e2e.conf.js

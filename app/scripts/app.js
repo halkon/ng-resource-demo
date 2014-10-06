@@ -1,6 +1,4 @@
-'use strict';
-
-angular.module('encoreApp', ['ngRoute', 'ngResource', 'encore.ui', 'encore.ui.rxModalAction', 'homeSvcs'])
+angular.module('encoreApp', ['ngRoute', 'ngResource', 'encore.ui', 'encoreApp.tpls', 'homeSvcs'])
     .config(function ($routeProvider, $locationProvider, $httpProvider) {
         $routeProvider
             .when('/home', {
@@ -24,5 +22,4 @@ angular.module('encoreApp', ['ngRoute', 'ngResource', 'encore.ui', 'encore.ui.rx
 
         // Forces JSON only
         $http.defaults.headers.common['Accept'] = 'application/json';
-
     });
