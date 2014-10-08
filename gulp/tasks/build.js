@@ -1,7 +1,5 @@
 var gulp = require('gulp');
 
-gulp.task('build', ['karma:build'], function () {
-    gulp.start('clean');
+gulp.task('build', ['clean', 'karma:build'], function () {
     gulp.start('html');
-    gulp.start('images');
 });

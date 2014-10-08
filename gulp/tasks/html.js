@@ -7,7 +7,7 @@ var csso = require('gulp-csso');
 var rev = require('gulp-rev');
 var revReplace = require('gulp-rev-replace');
 
-gulp.task('html', ['lint', 'templates', 'styles', 'wiredep'], function () {
+gulp.task('html', ['templates', 'styles', 'wiredep:index', 'index', 'images'], function () {
     var ngFilter = filter('app/scripts/**/*.js');
     var vendorFilter = filter('app/bower_components/**/*.js');
     var cssFilter = filter('**/*.css');
