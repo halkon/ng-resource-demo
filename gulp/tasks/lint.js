@@ -9,6 +9,14 @@ gulp.task('lint', function () {
     return gulp.src(['./app/scripts/**/*.js', './gulp/tasks/*.js', '!./app/scripts/templates.js'])
         .pipe(plumber())
         .pipe(jscs())
-        .pipe(jshint('.jshintrc', { fail: true }))
+        .pipe(jshint())
         .pipe(jshint.reporter(stylish)); // Console output
+});
+
+gulp.task('lint:strict', function () {
+    return gulp.src(['./app/scripts/**/*.js', './gulp/tasks/*.js', '!./app/scripts/templates.js'])
+        .pipe(jscs())
+        .pipe(jshint())
+        .pipe(jshint.reporter(stylish)) // Console output
+        .pipe(jshint.reporter('fail')); // Fail on errors
 });

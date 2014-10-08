@@ -20,8 +20,7 @@ git diff --cached --name-only | \
     GREP_COLOR='37;41' xargs grep --color --with-filename -n $FORBIDDEN && \
     echo 'Please remove debugging statements before commiting.' && exit 1
 
-grunt jshint:all
+gulp lint:strict
 if [ $? -ne "0" ]; then
     exit 1
 fi
-grunt jscs

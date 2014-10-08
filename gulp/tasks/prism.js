@@ -15,9 +15,9 @@ module.exports = function prismInit (prismMode) {
         changeOrigin: false,
         rewrite: {
             // Routes all login dependencies
-            '^/login/*': '/login/',
+            'login/*': '/login/',
             // Route login to index to avoid redirects
-            '^/login/?$': '/login/index.html'
+            'login/?$': '/login/index.html'
         }
     });
     prism.create({
@@ -37,7 +37,7 @@ module.exports = function prismInit (prismMode) {
         https: true,
         changeOrigin: true,
         rewrite: {
-            '/api/identity': '/v2.0'
+            'api/identity': '/v2.0'
         }
     });
     prism.create({
@@ -49,7 +49,7 @@ module.exports = function prismInit (prismMode) {
         https: true,
         changeOrigin: true,
         rewrite: {
-            '/api/customer-admin': '/v3'
+            'api/customer-admin': '/v3'
         }
     });
     prism.create({
@@ -61,7 +61,7 @@ module.exports = function prismInit (prismMode) {
         https: true,
         changeOrigin: true,
         rewrite: {
-            '/api/support': '/api'
+            'api/support': '/api'
         }
     });
 };

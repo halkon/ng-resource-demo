@@ -18,3 +18,8 @@ gulp.task('karma:threshold', ['lint'], function (done) {
         { reporters: ['coverage', 'threshold'] },
         { singleRun: true, configFile: process.cwd() + '/karma.conf.js' }), done);
 });
+
+// Only run during builds -- fails on lint and unit test errors
+gulp.task('karma:build', ['lint:strict'], function (done) {
+    karma.start(_.assign({}, { singleRun: true, configFile: process.cwd() + '/karma.conf.js' }), done);
+});

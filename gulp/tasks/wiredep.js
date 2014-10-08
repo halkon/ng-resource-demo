@@ -34,7 +34,7 @@ gulp.task('wiredep:karma', function () {
 });
 
 // inject Angular scripts into index.html
-gulp.task('index', ['templates'], function () {
+gulp.task('index', function () {
     var target = gulp.src('./app/index.html');
     // It's not necessary to read the files (will speed up things), we're only after their paths:
     var sources = gulp.src(['./app/scripts/**/*.js',
@@ -49,4 +49,8 @@ gulp.task('index', ['templates'], function () {
         .pipe(gulp.dest('./app'));
 });
 
-gulp.task('wiredep', ['wiredep:index', 'wiredep:karma', 'index']);
+gulp.task('wiredep', function () {
+    gulp.start('wiredep:index');
+    gulp.start('wiredep:karma');
+    gulp.start('index');
+});
