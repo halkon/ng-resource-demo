@@ -20,6 +20,6 @@ gulp.task('karma:threshold', ['lint'], function (done) {
 });
 
 // Only run during builds -- fails on lint and unit test errors
-gulp.task('karma:build', ['lint:strict'], function (done) {
+gulp.task('karma:build', ['lint:strict', 'templates'], function (done) {
     karma.start(_.assign({}, { singleRun: true, configFile: process.cwd() + '/karma.conf.js' }), done);
 });
