@@ -13,7 +13,7 @@ gulp.task('lint', function () {
         .pipe(jshint.reporter(stylish)); // Console output
 });
 
-gulp.task('lint:fail', function () {
+gulp.task('lint:strict', function () {
     return gulp.src(['./app/scripts/**/*.js', './gulp/tasks/*.js', '!./app/scripts/templates.js'])
         .pipe(jscs())
         .pipe(jshint())
