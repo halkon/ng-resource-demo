@@ -11,9 +11,9 @@
     "connect-prism": "^0.7.3",
     "del": "^0.1.3",
     "grunt": "^0.4.5",
-    "gulp": "~3.8.5",
+    "gulp": "~3.8.8",
     "gulp-angular-filesort": "^1.0.4",
-    "gulp-concat": "^2.2.0",
+    "gulp-concat": "~2.4.1",
     "gulp-csso": "^0.2.9",
     "gulp-filter": "^1.0.2",
     "gulp-imagemin": "^0.6.1",
@@ -58,7 +58,9 @@
     "stubby": "~0.2.3",
     "styledocco": "^0.6.6",
     "vinyl-source-stream": "0.1.x",
-    "wiredep": "^1.8.2"
+    "wiredep": "^1.8.2",
+    "gulp-shell": "~0.2.10",
+    "gulp-yaml": "~0.2.2"
   },
   "repository": {
     "type": "git",

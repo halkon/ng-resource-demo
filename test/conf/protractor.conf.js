@@ -1,7 +1,7 @@
 /*jshint node:true */
 // For some reason 'grunt jshint' doesn't respect the node:true in the .jshintrc file, so we have to add it here
 
-var config = require('../../tasks/util/config');
+var pkg = require('../../package.json');
 
 exports.config = {
     framework: 'mocha',
@@ -19,7 +19,7 @@ exports.config = {
     ],
 
     params: {
-        loginRedirect: config.appName + '/home'
+        loginRedirect: pkg.config.appName + '/home'
     },
 
     onPrepare: function () {
