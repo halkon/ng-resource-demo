@@ -33,6 +33,7 @@ exports.config = {
     },
 
     mochaOpts: {
+        enableTimeouts: false,
         reporter: 'spec',
         slow: 3000,
         ui: 'bdd',

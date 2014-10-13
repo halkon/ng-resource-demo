@@ -96,16 +96,12 @@ For both Midway and E2E tests, we use a Page Object library called [Astrolabe](h
 
 Goal: Validate our appplication in isolation from its dependencies (e.g. API Server)
 
-First, you'll need to install [Protractor](https://github.com/angular/protractor/), the Angular Selenium Driver. Do that by running:
-
-    npm install -g protractor
-
 In order to run the midway test suite, you will need a selenium server running.
 If you have protractor installed, you can get a selenium webdriver running with:
 
 ```
-$> webdriver-manager update
-$> webdriver-manager start
+$> ./node_modules/protractor/bin/webdriver-manager update
+$> ./node_modules/protractor/bin/webdriver-manager start
 ```
 
 Server mocks are done using Stub.by. Server stubs are stored in the frontend/test/api-mocks folder. You need to ensure that you already have a development server running with Stub.by. If you haven't already, start up your stubbed server:
@@ -114,7 +110,7 @@ Server mocks are done using Stub.by. Server stubs are stored in the frontend/tes
 
 In order to correctly run the midway tests you will need to keep this running in the background, so open a new terminal after running this command.
 
-    protractor test/conf/protractor.conf.js
+    ./node_modules/protractor/bin/protractor test/conf/protractor.conf.js
 
 You can also create a `test/conf/protractor.local.conf.js` file to use when you need dev-specific settings that you don't want used in the CICD builds. This also applies for `test/conf/protractor.local.e2e.conf.js` as well.
 
@@ -124,7 +120,7 @@ This template ships with some useful functionality in `test/pages/login.page.js`
 
 When developing a specific page, it's much quicker to run tests only for that page (rather than run the entire suite every time). In order to limit the tests to just that page, pass in path to the file to test as the third option in your grunt command. For example:
 
-`protractor test/protractor.conf.js --specs=test/midway/cloudDetailPage.js`
+`./node_modules/protractor/bin/protractor test/protractor.conf.js --specs=test/midway/cloudDetailPage.js`
 
 ### E2E Tests
 
