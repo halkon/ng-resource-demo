@@ -6,8 +6,10 @@ appLocalRewrite[appName] = '';
 
 module.exports = function prismInit (prismMode) {
     prismMode = prismMode || 'proxy';
+
     prism.create({
         name: 'login',
+        prismMode: prismMode,
         context: '/login',
         host: 'staging.encore.rackspace.com',
         port: 443,
@@ -20,48 +22,67 @@ module.exports = function prismInit (prismMode) {
             'login/?$': '/login/index.html'
         }
     });
+
     prism.create({
         name: 'app',
-        mode: 'proxy',
+        prismMode: prismMode,
         context: '/' + appName,
         host: 'localhost',
         port: 9000,
         rewrite: appLocalRewrite
     });
-    prism.create({
-        name: 'identity',
-        context: '/api/identity',
-        // Point to the identity host relevant to the project
-        host: 'staging.identity-internal.api.rackspacecloud.com',
-        port: 443,
-        https: true,
-        changeOrigin: true,
-        rewrite: {
-            'api/identity': '/v2.0'
-        }
-    });
-    prism.create({
-        name: 'cas',
-        mode: prismMode,
-        context: '/api/customer-admin',
-        host: 'customer-admin.staging.ord1.us.ci.rackspace.net',
-        port: 443,
-        https: true,
-        changeOrigin: true,
-        rewrite: {
-            'api/customer-admin': '/v3'
-        }
-    });
-    prism.create({
-        name: 'support',
-        mode: prismMode,
-        context: '/api/support',
-        host: 'staging.dfw.support.encore.rackspace.com',
-        port: 443,
-        https: true,
-        changeOrigin: true,
-        rewrite: {
-            'api/support': '/api'
-        }
-    });
+
+    if (prismMode === 'stubbed') {
+
+        prism.create({ // Default catch all for all stubbed out API's
+            name: 'default',
+            context: '/api',
+            host: 'localhost',
+            port: 3000,
+            https: false,
+            changeOrigin: false
+        });
+
+    } else {
+
+        prism.create({
+            name: 'identity',
+            context: '/api/identity',
+            // Point to the identity host relevant to the project
+            host: 'staging.identity-internal.api.rackspacecloud.com',
+            port: 443,
+            https: true,
+            changeOrigin: true,
+            rewrite: {
+                'api/identity': '/v2.0'
+            }
+        });
+
+        prism.create({
+            name: 'cas',
+            mode: prismMode,
+            context: '/api/customer-admin',
+            host: 'customer-admin.staging.ord1.us.ci.rackspace.net',
+            port: 443,
+            https: true,
+            changeOrigin: true,
+            rewrite: {
+                'api/customer-admin': '/v3'
+            }
+        });
+
+        prism.create({
+            name: 'support',
+            mode: prismMode,
+            context: '/api/support',
+            host: 'staging.dfw.support.encore.rackspace.com',
+            port: 443,
+            https: true,
+            changeOrigin: true,
+            rewrite: {
+                'api/support': '/api'
+            }
+        });
+    }
+
 };

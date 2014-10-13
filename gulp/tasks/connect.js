@@ -1,11 +1,14 @@
-var gulp = require('gulp');
-var livereload = require('connect-livereload');
-var refresh  = require('gulp-livereload');
+var concat = require('gulp-concat');
 var connect = require('connect');
-var serveStatic = require('serve-static');
+var gulp = require('gulp');
 var historyApiFallback = require('connect-history-api-fallback');
+var livereload = require('connect-livereload');
 var prism = require('connect-prism');
 var prismInit = require('./prism');
+var refresh  = require('gulp-livereload');
+var serveStatic = require('serve-static');
+var shell = require('gulp-shell');
+var yaml = require('gulp-yaml');
 
 // Run Connect server
 var lrport = 35729;
@@ -46,6 +49,19 @@ var watch = function () {
 gulp.task('server', ['open'], function () {
     prismInit();
     watch();
+});
+
+gulp.task('server:stubbed:watch', ['templates', 'styles', 'connect'], function () {
+
+    gulp.src('test/api-mocks/**/*.yaml')
+        .pipe(concat('mocks.yaml'))
+        .pipe(yaml({ space: 2 }))
+        .pipe(gulp.dest('.'))
+        .pipe(shell(['node_modules/stubby/bin/stubby -md mocks.json -l localhost -s 3000']));
+
+    prismInit('stubbed');
+    watch();
+
 });
 
 gulp.task('server:mock', ['open'], function () {
