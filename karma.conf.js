@@ -31,8 +31,9 @@ module.exports = function(config) {
             'app/bower_components/encore-ui/encore-ui-tpls.js',
             // endbower
             'app/bower_components/angular-mocks/angular-mocks.js',
-            'app/scripts/app.js', // always load app definition first
-            'app/scripts/**/*.js',
+            'app/src/app.js', // always load app definition first
+            'app/templates.js',
+            'app/src/**/*.js',
             'test/browser-helpers.js'
             // '../test/window-hack.js', // Only load when preventing window.location redirects
         ],
@@ -42,7 +43,7 @@ module.exports = function(config) {
         ],
 
         preprocessors: {
-            'app/scripts/**/!(*.spec).js': ['coverage']
+            'app/src/**/!(*.spec).js': ['coverage']
         },
 
 
