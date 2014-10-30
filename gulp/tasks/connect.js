@@ -13,18 +13,23 @@ var yaml = require('gulp-yaml');
 // Run Connect server
 var lrport = 35729;
 var server = connect();
-
 // Prism proxies
 server.use(prism.middleware);
-
 // Add live reload
 server.use(livereload({ port: lrport }));
-
 // HTML5 pushState fallback
 server.use(historyApiFallback);
-
 // Routes
 server.use(serveStatic('./app'));
+
+// Watch for changes
+var watch = function () {
+    gulp.watch(['./app/src/**/*.js', './app/index.html'], ['karma:single']);
+    gulp.watch(['./app/src/**/*.less'], ['styles']);
+    gulp.watch(['./app/src/**/*.html'], ['templates']);
+    gulp.watch(['./app/src/**/*']).on('change', refresh.changed);
+    gulp.watch('bower.json', ['wiredep']);
+};
 
 gulp.task('connect', function () {
     // Start webserver
@@ -37,22 +42,12 @@ gulp.task('connect', function () {
     refresh.listen();
 });
 
-// Watch for changes
-var watch = function () {
-    gulp.watch(['./app/scripts/**/*.js', './app/index.html'], ['karma:single']);
-    gulp.watch(['./app/styles/**/*.less'], ['styles']);
-    gulp.watch(['./app/views/**/*.html'], ['templates']);
-    gulp.watch('./app/**/*').on('change', refresh.changed);
-    gulp.watch('bower.json', ['wiredep']);
-};
-
 gulp.task('server', ['open'], function () {
-    prismInit();
+    prismInit('proxy');
     watch();
 });
 
-gulp.task('server:stubbed:watch', ['templates', 'styles', 'connect'], function () {
-
+gulp.task('server:stubbed:watch', ['templates', 'styles', 'connect', 'open'], function () {
     gulp.src('test/api-mocks/**/*.yaml')
         .pipe(concat('mocks.yaml'))
         .pipe(yaml({ space: 2 }))
@@ -61,7 +56,6 @@ gulp.task('server:stubbed:watch', ['templates', 'styles', 'connect'], function (
 
     prismInit('stubbed');
     watch();
-
 });
 
 gulp.task('server:mock', ['open'], function () {

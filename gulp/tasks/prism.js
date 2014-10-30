@@ -1,11 +1,11 @@
-var pkg = require('../../package.json');
-var appName = pkg.config.appName;
+// This file is use primarily with the connect.js gulp configuration
 var prism = require('connect-prism');
-var appLocalRewrite = {};
-appLocalRewrite[appName] = '';
 
 module.exports = function prismInit (prismMode) {
     prismMode = prismMode || 'proxy';
+
+    var appLocalRewrite = {};
+    appLocalRewrite[global.appName] = '';
 
     prism.create({
         name: 'login',
@@ -26,14 +26,13 @@ module.exports = function prismInit (prismMode) {
     prism.create({
         name: 'app',
         prismMode: prismMode,
-        context: '/' + appName,
+        context: '/' + global.appName,
         host: 'localhost',
         port: 9000,
         rewrite: appLocalRewrite
     });
 
     if (prismMode === 'stubbed') {
-
         prism.create({ // Default catch all for all stubbed out API's
             name: 'default',
             context: '/api',
@@ -42,9 +41,7 @@ module.exports = function prismInit (prismMode) {
             https: false,
             changeOrigin: false
         });
-
     } else {
-
         prism.create({
             name: 'identity',
             context: '/api/identity',
@@ -84,5 +81,4 @@ module.exports = function prismInit (prismMode) {
             }
         });
     }
-
 };

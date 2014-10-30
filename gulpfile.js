@@ -10,5 +10,5 @@
 */
 
 var pkg = require('./package.json');
-require('./gulp');
 global.appName = pkg.config.appName;
+require('./gulp');

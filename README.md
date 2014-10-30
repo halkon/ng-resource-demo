@@ -5,10 +5,51 @@ There are a few things you should know about before you start coding.
 
 ### Folder Structure
 
-* All Javascript goes into `app/scripts`
-* All LESS files go into `app/styles`
-* HTML files are placed into `app/views`
-* HTML templates for directives go into `app/views/templates`
+```bash
+/app
+  404.html
+  index.html
+  /bower_components
+  /src # needed to simplify gulp/karma file selection globs
+    app.js # routing to proper feature files done here
+    app.spec.js
+    app.less
+    /common # source logic available to all application features goes here
+      /assets
+        /images
+        /fonts
+        /styles
+      /directives
+      /filters
+      /services
+      /views
+      # ...
+    /{feature} # all logic for a particular feature is nicely contained within its own directory
+      FoobarFilter.js # common filter for use within this feature
+      /images # images for the feature should be placed here (if necessary)
+      /{action} # rule of thumb: if you need a new controller/view, you might need another directory
+        /images # images for the feature/action should be placed here (if necessary)
+        # ... files to implement particular feature/action functionality
+      /create # example
+        CreateFoobarCtrl.js
+        CreateFoobarCtrl.spec.js
+        CreateFoobar.html
+        CreateFoobar.less
+        # ...
+      /update
+      /delete
+      # ...
+```
+
+#### Images ####
+
+Due to the sheer number of possible image extensions, the gulp file selection glob for images has been simplified to merely look for `app/src/**/images/**/*` (any file within an `images` directory).
+As such, here are a few things to keep in mind.
+
+* `Images` MUST be contained within an `images` directory somewhere in the `app/src` directory tree.
+  * If your images are elsewhere, they will **not be included** by the `gulp images` task.
+* Do not place non-image files in the `images` directories.
+  * This will confuse the `gulp images` task.
 
 ### Development
 
@@ -44,7 +85,7 @@ images will be compressed and placed into the `dist` folder under your app root 
 
 ### Gulp Tasks
 
-* `gulp wiredep` -- Injects Bower component paths into karma.conf.js and index.html. It also injects any Javascript files in `app/scripts` into your index.html.
+* `gulp wiredep` -- Injects Bower component paths into karma.conf.js and index.html. It also injects any Javascript files in `app/src/**/*` into your index.html.
 * `gulp server` -- Start development server and watch files for changes
 * `gulp server:record` -- Start server and record API responses into JSON files for mocking
 * `gulp server:mock` -- Start server and mock API responses using your recorded JSON files

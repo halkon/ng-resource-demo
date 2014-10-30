@@ -6,18 +6,24 @@ var uglify = require('gulp-uglify');
 
 // Convert the html partials into js file pulled in as Angular dependency
 gulp.task('templates', function () {
-    return gulp.src('./app/views/**/*.html')
-        .pipe(minifyHtml({
-            empty: true,
-            spare: true,
-            quotes: true
-        }))
-        .pipe(ngHtml2Js({
-            stripPrefix: 'app/',
-            prefix: 'views/',
-            moduleName: global.appName + '.tpls'
-        }))
+    var templatePaths = [
+        './app/src/**/*.html'
+    ];
+    var minifyHtmlOptions = {
+        empty: true,
+        spare: true,
+        quotes: true
+    };
+    var ngHtml2JsOptions = {
+        stripPrefix: 'app/',
+        prefix: 'modules/',
+        moduleName: global.appName + '.tpls'
+    };
+
+    return gulp.src(templatePaths)
+        .pipe(minifyHtml(minifyHtmlOptions))
+        .pipe(ngHtml2Js(ngHtml2JsOptions))
         .pipe(concat('templates.js'))
         .pipe(uglify())
-        .pipe(gulp.dest('./app/scripts'));
-});
+        .pipe(gulp.dest('./app'));
+});//templates

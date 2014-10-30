@@ -18,4 +18,4 @@ gulp.task('html', ['templates', 'styles', 'wiredep:index', 'index', 'images'], f
         .pipe(useref())
         .pipe(revReplace())
         .pipe(gulp.dest('./dist/' + global.appName));
-});
+});//html
