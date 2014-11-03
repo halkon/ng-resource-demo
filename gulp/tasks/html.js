@@ -5,8 +5,13 @@ var uglify = require('gulp-uglify');
 var csso = require('gulp-csso');
 var rev = require('gulp-rev');
 var revReplace = require('gulp-rev-replace');
+var runSequence = require('run-sequence');
 
-gulp.task('html', ['templates', 'styles', 'wiredep:index', 'index', 'images'], function () {
+gulp.task('html:assets', ['templates', 'styles', 'images'], function () {
+    runSequence('wiredep:index', 'scripts:inject');
+});
+
+gulp.task('html', ['html:assets'], function () {
     var assets = useref.assets();
 
     return gulp.src('app/index.html')
