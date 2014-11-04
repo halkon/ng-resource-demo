@@ -8,8 +8,8 @@ var rev = require('gulp-rev');
 var revReplace = require('gulp-rev-replace');
 var runSequence = require('run-sequence');
 
-gulp.task('html:assets', ['templates', 'styles', 'images'], function () {
-    runSequence('wiredep:index', 'scripts:inject');
+gulp.task('html:assets', ['templates', 'styles', 'images'], function (cb) {
+    runSequence('wiredep:index', 'scripts:inject', cb);
 });
 
 gulp.task('html', ['html:assets'], function () {
