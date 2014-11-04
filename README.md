@@ -90,6 +90,7 @@ images will be compressed and placed into the `dist` folder under your app root 
 * `gulp server:record` -- Start server and record API responses into JSON files for mocking
 * `gulp server:mock` -- Start server and mock API responses using your recorded JSON files
 * `gulp karma:single` -- Run Karma in a single pass
+* `gulp karma:debug` -- Run Karma in debug mode using Chrome
 * `gulp karma:threshold` -- Run Karma in a single pass and fail if coverage is too low
 * `gulp build` -- Build distribution
 
@@ -114,3 +115,16 @@ reports should be generated inside of the `coverage` folder. Tests should be usi
 * [Mocha](http://visionmedia.github.io/mocha/)
 * [Chai](http://chaijs.com/)
 * [Sinon](http://sinonjs.org/)
+
+To run your tests in `debug` mode, do `gulp karma:debug`. This will launch a Chrome browser and start all your tests.
+When the tests have completed, the browser will stay open and you can simply reload the page to run the tests again.
+
+Running in this mode allows you to put `debugger;` anywhere in either your tests or your source code. When a `debugger`
+statement is encountered while in `karma:debug` mode *and* you've opened the Chrome Developer Tools (command-option-I on a Mac),
+execution will be paused at the `debugger` and you can step through the code in Chrome. This will let you do any variable
+evaluation, function call, etc. that you want. 
+
+This mode will also automatically watch for changes in your test files, and rerun the tests on change. Please note that
+if execution is currently paused because of a `debugger` statement, the tests won't rerun. You can either continue 
+execution or simply reload the page to run the tests again.
+
