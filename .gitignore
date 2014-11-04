@@ -68,7 +68,7 @@ Desktop.ini
 $RECYCLE.BIN/
 
 # VIM stuff
-*.s[a-w][a-z]
+*.swp
 *.un~
 Session.vim
 .netrwhist
