@@ -7,6 +7,16 @@ gulp.task('karma:single', ['lint'], function (done) {
     karma.start(_.assign({}, { singleRun: true, configFile: process.cwd() + '/karma.conf.js' }), done);
 });
 
+// Run tests in debug mode
+gulp.task('karma:debug', function (done) {
+    karma.start(_.assign({}, {
+        singleRun: false,
+        browsers: ['Chrome'],
+        preprocessors: {},
+        configFile: process.cwd() + '/karma.conf.js'
+    }), done);
+});
+
 // Watch for file changes and re-run tests on each change
 gulp.task('karma:watch', function (done) {
     karma.start(_.assign({}, { configFile: process.cwd() + '/karma.conf.js' }), done);
