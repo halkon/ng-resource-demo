@@ -9,7 +9,6 @@
   To add a new task, simply add a new task file to gulp/tasks.
 */
 
-var pkg = require('./package.json');
-global.appName = pkg.config.appName;
+global.config = require('./config.json');
 global.gulpUtil = require('./gulp/util');
 require('./gulp');

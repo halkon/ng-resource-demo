@@ -13,27 +13,27 @@ module.exports = function(config) {
         // list of files / patterns to load in the browser
         files: [
             // bower:js
-            'app/bower_components/es5-shim/es5-shim.js',
-            'app/bower_components/angular/angular.js',
-            'app/bower_components/angular-animate/angular-animate.js',
-            'app/bower_components/json3/lib/json3.min.js',
-            'app/bower_components/angular-route/angular-route.js',
-            'app/bower_components/angular-resource/angular-resource.js',
-            'app/bower_components/angular-cookies/angular-cookies.js',
-            'app/bower_components/angular-sanitize/angular-sanitize.js',
-            'app/bower_components/lodash/dist/lodash.compat.js',
-            'app/bower_components/mousetrap/mousetrap.js',
-            'app/bower_components/mousetrap-bind-element/mousetrap-bind-element.js',
-            'app/bower_components/html2canvas/build/html2canvas.js',
-            'app/bower_components/momentjs/moment.js',
-            'app/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
-            'app/bower_components/angular-hotkeys/build/hotkeys.min.js',
-            'app/bower_components/encore-ui/encore-ui-tpls.js',
+            'compiled/bower_components/es5-shim/es5-shim.js',
+            'compiled/bower_components/angular/angular.js',
+            'compiled/bower_components/angular-animate/angular-animate.js',
+            'compiled/bower_components/json3/lib/json3.min.js',
+            'compiled/bower_components/angular-route/angular-route.js',
+            'compiled/bower_components/angular-resource/angular-resource.js',
+            'compiled/bower_components/angular-cookies/angular-cookies.js',
+            'compiled/bower_components/angular-sanitize/angular-sanitize.js',
+            'compiled/bower_components/lodash/dist/lodash.compat.js',
+            'compiled/bower_components/mousetrap/mousetrap.js',
+            'compiled/bower_components/mousetrap-bind-element/mousetrap-bind-element.js',
+            'compiled/bower_components/html2canvas/build/html2canvas.js',
+            'compiled/bower_components/momentjs/moment.js',
+            'compiled/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+            'compiled/bower_components/angular-hotkeys/build/hotkeys.min.js',
+            'compiled/bower_components/encore-ui/encore-ui-tpls.js',
             // endbower
-            'app/bower_components/angular-mocks/angular-mocks.js',
-            'app/src/app.js', // always load app definition first
-            'app/templates.js',
-            'app/src/**/*.js',
+            'compiled/bower_components/angular-mocks/angular-mocks.js',
+            'compiled/src/app.js', // always load app definition first
+            'compiled/templates.js',
+            'compiled/src/**/*.js',
             'test/browser-helpers.js'
             // '../test/window-hack.js', // Only load when preventing window.location redirects
         ],
@@ -43,7 +43,7 @@ module.exports = function(config) {
         ],
 
         preprocessors: {
-            'app/src/**/!(*.spec).js': ['coverage']
+            'compiled/src/**/!(*.spec).js': ['coverage']
         },
 
 
@@ -53,7 +53,7 @@ module.exports = function(config) {
 
         coverageReporter: {
             type : 'html',
-            dir : 'coverage/'
+            dir : 'dist/coverage/'
         },
 
         thresholdReporter: {

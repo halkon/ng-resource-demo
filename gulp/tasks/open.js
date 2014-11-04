@@ -1,5 +1,6 @@
 var gulp = require('gulp');
+var opn = require('opn');
 
-gulp.task('open', ['lint', 'templates', 'index', 'styles', 'connect'], function () {
-    require('opn')('http://localhost:9000/' + global.appName);
+gulp.task('open', ['lint', 'compile', 'connect'], function () {
+    opn('http://localhost:9000/' + global.config.appName);
 });

@@ -4,8 +4,10 @@ var jscs = require('gulp-jscs');
 var jshint = require('gulp-jshint');
 var stylish = require('jshint-stylish');
 
+var srcPath = global.config.srcPath;
+
 var lintPaths = [
-    './app/src/**/*.js',
+    srcPath + '/src/**/*.js',
     './gulp/tasks/*.js'
 ];
 

@@ -16,7 +16,7 @@ server.use(livereload({ port: lrport }));
 // HTML5 pushState fallback
 server.use(historyApiFallback);
 // Routes
-server.use(serveStatic('./app'));
+server.use(serveStatic('./compiled'));
 
 gulp.task('connect', function () {
     // Start webserver
