@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var useref = require('gulp-useref');
 var gulpif = require('gulp-if');
+var ngAnnotate = require('gulp-ng-annotate');
 var uglify = require('gulp-uglify');
 var csso = require('gulp-csso');
 var rev = require('gulp-rev');
@@ -16,6 +17,7 @@ gulp.task('html', ['html:assets'], function () {
 
     return gulp.src('app/index.html')
         .pipe(assets)
+        .pipe(gulpif('*.js', ngAnnotate()))
         .pipe(gulpif('*.js', uglify()))
         .pipe(gulpif('*.css', csso()))
         .pipe(rev())
