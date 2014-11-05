@@ -3,7 +3,7 @@
 This is a base template designed to get you started with building a new Angular application using the [Encore-UI](http://rackerlabs.github.io/encore-ui/#/overview) framework.
 There are a few things you should know about before you start coding.
 
-### Folder Structure
+## Folder Structure
 
 ```bash
 /app
@@ -40,8 +40,9 @@ There are a few things you should know about before you start coding.
       /delete
       # ...
 ```
+        
 
-#### Images ####
+### Images
 
 Due to the sheer number of possible image extensions, the gulp file selection glob for images has been simplified to merely look for `app/src/**/images/**/*` (any file within an `images` directory).
 As such, here are a few things to keep in mind.
@@ -51,7 +52,7 @@ As such, here are a few things to keep in mind.
 * Do not place non-image files in the `images` directories.
   * This will confuse the `gulp images` task.
 
-### Development
+## Development
 
 Gulp is used for starting a development server and watching your files. Any changes made to files while in `watch` mode
 will trigger linting via JSHint and JSCS, a single pass of Karma, and a refresh in your browser via LiveReload.
@@ -60,16 +61,16 @@ A Connect server is used to serve files from within the `app` folder, and
 Prism is being used as Connect middleware to offer proxy support for any API calls you need to make.
 
 Gulp tasks can be found in `gulp/tasks`, and you are welcome to modify these as needed. You will likely only need to
-modify the following tasks:
+modify the following files:
 
-* `prism` -- This is where you will define your proxy endpoints.
+* `gulp/util/prism.js` -- This is where you will define your proxy endpoints.
 
-### Building
+## Building
 
 The `build` task is where Gulp will compile and minify all assets into a distributable format. All JS, CSS, HTML, and
 images will be compressed and placed into the `dist` folder under your app root folder.
 
-### Getting Started
+## Getting Started
 
 * `git clone https://github.com/rackerlabs/encore-ui-template {{yourAppName}}`
 * `cd {{yourAppName}}`
@@ -77,25 +78,66 @@ images will be compressed and placed into the `dist` folder under your app root 
 * `git init` -- This will make sure you aren't working out of the template repo.
 * `npm install`
 * `bower install`
+* Wire dependencies with `gulp wiredep`
 * Set `config.appName` in package.json to `{{yourAppName}}`
 * Change the base href in `index.html` to `/{{yourAppName}}/`
-* Wire dependencies with `gulp wiredep`
-* Make sure that you are including the template cache module in your app.js dependencies (module name should be `{{yourAppName}}.tpls`)
+* Make sure that you are including the template cache module in your app.js dependencies
+  * module name should be `{{yourAppName}}.tpls`
 * Start local development server with `gulp server`
 
-### Gulp Tasks
+## Gulp Tasks
 
-* `gulp wiredep` -- Injects Bower component paths into karma.conf.js and index.html. It also injects any Javascript files in `app/src/**/*` into your index.html.
-* `gulp server` -- Start development server and watch files for changes
-* `gulp server:record` -- Start server and record API responses into JSON files for mocking
-* `gulp server:mock` -- Start server and mock API responses using your recorded JSON files
-* `gulp karma:single` -- Run Karma in a single pass
-* `gulp karma:debug` -- Run Karma in debug mode using Chrome
-* `gulp karma:threshold` -- Run Karma in a single pass and fail if coverage is too low
+### index
+These tasks manipulate the `app/index.html`.
+
+* `gulp index`
+  * Injects javascript files in `app/src/**/*` into your index.html. 
+  * Injects bower dependencies (css and javascripts) into your index.html.
+
+**Note:** *`gulp/tasks/index.js` is NOT a node module manifest file.*
+
+### build
+These tasks build from the `/app` directory and output to the `/dist` directory.
+
 * `gulp build` -- Build distribution
 
+### karma
+These tasks run tests.
 
-### Converting from Grunt Template
+* `gulp karma:single`
+  * Run Karma in a single pass
+* `gulp karma:debug`
+  * Run Karma in debug mode using Chrome
+* `gulp karma:threshold`
+  * Run Karma in a single pass and fail if coverage is too low
+
+### scripts
+These tasks take care of injection and transpilation of your script files.
+
+* `gulp scripts`
+  * by default, this will run the `scripts:transpile` task
+* `gulp scripts:inject`
+  * Inject `<script>` tags in `app/index.html` for all JS files in `app/src`.
+  * **Run this when you add/remove script files from `app/src`**
+
+### server
+These tasks start up a local "connect" server for development purposes.
+
+* `gulp server`
+  * Start development server and watch files for changes
+* `gulp server:record`
+  * Start server and record API responses into JSON files for mocking
+* `gulp server:mock`
+  * Start server and mock API responses using your recorded JSON files
+
+### wiredep
+These tasks inject bower dependencies into the required files.
+
+* `gulp wiredep`
+  * Injects Bower component paths into karma.conf.js and index.html.
+  * **Run this whenever your bower dependencies change**
+
+## Converting from Grunt Template
 
 The previous iteration of this template used Grunt for running tasks. While this approach may still work, it is
 recommended that everyone move over to Gulp. The only files you need to modify are:
@@ -107,7 +149,7 @@ recommended that everyone move over to Gulp. The only files you need to modify a
 Ensure that these files contain the proper comments necessary for Gulp inject and wiredep, and that you are including
 the template cache module in your app.js dependencies.
 
-### Testing
+## Testing
 
 We highly encourage writing unit tests for new code whenever possible. Karma is used to run tests, and coverage
 reports should be generated inside of the `coverage` folder. Tests should be using Mocha + Chai + Sinon:
@@ -127,4 +169,3 @@ evaluation, function call, etc. that you want.
 This mode will also automatically watch for changes in your test files, and rerun the tests on change. Please note that
 if execution is currently paused because of a `debugger` statement, the tests won't rerun. You can either continue 
 execution or simply reload the page to run the tests again.
-
