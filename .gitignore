@@ -1,20 +1,16 @@
 # app specific stuff
 docs
 ngdocs
+compiled
 dist
 .tmp
 .sass-cache
 coverage
-app/bower_components
 report
 *.sw*
 captures/*
 .DS_Store
 styleguide
-# TODO Don't track generates CSS from LESS
-app/application.css
-app/application.css.map
-app/templates.js
 # Allow the option to use a local protractor conf
 test/protractor.conf.local.js
 test/protractor.conf.e2e.local.js

@@ -1,11 +1,12 @@
 // This file is use primarily with the connect.js gulp configuration
 var prism = require('connect-prism');
+var appName = global.config.appName;
 
 module.exports = function prismInit (prismMode) {
     prismMode = prismMode || 'proxy';
 
     var appLocalRewrite = {};
-    appLocalRewrite[global.appName] = '';
+    appLocalRewrite[appName] = '';
 
     prism.create({
         name: 'login',
@@ -26,7 +27,7 @@ module.exports = function prismInit (prismMode) {
     prism.create({
         name: 'app',
         prismMode: prismMode,
-        context: '/' + global.appName,
+        context: '/' + appName,
         host: 'localhost',
         port: 9000,
         rewrite: appLocalRewrite
