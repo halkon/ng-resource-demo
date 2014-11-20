@@ -13,6 +13,7 @@ There are a few things you should know about before you start coding.
 * `bower install`
 * Set `name` in `package.json` to `{{yourAppName}}`
 * Set `appName` in `config.json` to `{{yourAppName}}`
+* Set `baseHref` in `config.json` to `/{{yourAppName}}/`
 * Change the base href in `index.html` to `/{{yourAppName}}/`
 * Make sure that you are including the template cache module in your app.js dependencies
   * module name should be `{{yourAppName}}.tpls`
