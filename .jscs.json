@@ -62,6 +62,5 @@
         "checkParamNames": true,
         "checkRedundantParams": true,
         "requireParamTypes": true
-    },
-    "excludeFiles": ["app/scripts/lib/**"]
+    }
 }
