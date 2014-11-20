@@ -1,5 +1,6 @@
 {
     "appName": "encoreApp",
+    "baseHref": "/encoreApp/",
     "bowerPath": "./compiled/bower_components",
     "buildPath": "./dist/app",
     "compilePath": "./compiled",
