@@ -1,5 +1,6 @@
 var compilePath = global.config.compilePath;
 var buildPath = global.config.buildPath;
+var bowerPath = global.config.bowerPath;
 
 var csso = require('gulp-csso');
 var gulp = require('gulp');
@@ -39,6 +40,10 @@ gulp.task('build:images', ['compile'], function (done) {
         progressive: true,
         interlaced: true
     };
+
+    gulp.src(bowerPath + '/encore-ui/images/*')
+        .pipe(imagemin(imageminOptions))
+        .pipe(gulp.dest(buildPath + '/styles/images'));
 
     gulp.src(compilePath + '/images/**/*')
         .pipe(imagemin(imageminOptions))
