@@ -1,5 +1,6 @@
 var compilePath = global.config.compilePath;
 var buildPath = global.config.buildPath;
+var bowerPath = global.config.bowerPath;
 
 var csso = require('gulp-csso');
 var gulp = require('gulp');
@@ -39,6 +40,12 @@ gulp.task('build:images', ['compile'], function (done) {
         progressive: true,
         interlaced: true
     };
+
+    // Encore currently uses relative paths for its images,
+    // so they must be served from the same directory as the css.
+    // In the future, a CDN may be added, making this part of the task irrelevant.
+    gulp.src(bowerPath + '/encore-ui/images/*')
+        .pipe(gulp.dest(buildPath + '/styles/images'));
 
     gulp.src(compilePath + '/images/**/*')
         .pipe(imagemin(imageminOptions))
