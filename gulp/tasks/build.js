@@ -41,8 +41,10 @@ gulp.task('build:images', ['compile'], function (done) {
         interlaced: true
     };
 
+    // Encore currently uses relative paths for its images,
+    // so they must be served from the same directory as the css.
+    // In the future, a CDN may be added, making this part of the task irrelevant.
     gulp.src(bowerPath + '/encore-ui/images/*')
-        .pipe(imagemin(imageminOptions))
         .pipe(gulp.dest(buildPath + '/styles/images'));
 
     gulp.src(compilePath + '/images/**/*')
