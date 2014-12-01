@@ -13,6 +13,7 @@ var minifyHtml = require('gulp-minify-html');
 var newer = require('gulp-newer');
 var ngAnnotate = require('gulp-ng-annotate');
 var ngHtml2Js = require('gulp-ng-html2js');
+var plumber = require('gulp-plumber');
 var runSequence = require('run-sequence');
 var wiredep = require('wiredep').stream;
 
@@ -49,7 +50,7 @@ gulp.task('compile:scripts', function () {
         .pipe(gulp.dest(compilePath + '/src'));
 });//compile:scripts
 
-// Inject Bower and Scripts from {srcPath}/index.html into {compilePath}/index.html
+// Inject Bower components and Scripts from {srcPath}/index.html into {compilePath}/index.html
 gulp.task('compile:index', function () {
     // script injection
     var scriptSourcePaths = [
@@ -66,16 +67,10 @@ gulp.task('compile:index', function () {
         .pipe(gulp.dest(compilePath));
 });//compile:index
 
-// compile and concatenate all LESS files to {compilePath}/application.css
+// compile LESS to {compilePath}/application.css
 gulp.task('compile:styles', function () {
-    // Concatenation occurs in the same order
-    var lessPaths = [
-        srcPath + '/src/app.less',
-        srcPath + '/src/common/**/*.less',
-        srcPath + '/src/**/*.less'
-    ];
-
-    return gulp.src(lessPaths)
+    return gulp.src(srcPath + '/src/app.less')
+        .pipe(plumber())
         .pipe(less())
         .pipe(concat('application.css'))
         .pipe(gulp.dest(compilePath));
