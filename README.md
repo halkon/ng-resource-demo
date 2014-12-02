@@ -206,6 +206,7 @@ Currently, this script will only be called with one argument: "staging" or "prep
 Jenkins will call the script like so (depending on Environment)
 
 `bash -ex bin/run-e2e staging`
+
 `bash -ex bin/run-e2e preprod`
 
 Feel free to update the script for proper run of tests for the environments in Jenkins.
