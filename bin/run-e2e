@@ -1,0 +1,30 @@
+#!/bin/bash
+
+ENVIRONMENT=$1
+
+if [ -z $ENVIRONMENT ]; then
+    echo 'No Environment Found'
+    exit -1
+fi
+
+# Let's set up the necessary things for testing
+npm install --loglevel=warn
+
+
+# Let's get the credentials
+cp ~/secrets.js ./test/secrets.js
+
+./node_modules/protractor/bin/webdriver-manager update --standalone
+./node_modules/protractor/bin/webdriver-manager start --standalone 2> /dev/null 1> /dev/null &
+
+# wait for selenium server to actually come up
+sleep 5
+
+echo "Running tests..."
+CONF="test/conf/protractor.e2e.conf.js"
+
+if [ $ENVIRONMENT == "preprod" ]; then
+    CONF="test/conf/protractor.preprod.conf.js"
+fi
+
+./node_modules/protractor/bin/protractor $CONF
