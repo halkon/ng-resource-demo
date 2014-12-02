@@ -127,7 +127,8 @@ This task takes care of injecting the appropriate javascripts and bower dependen
 into the `/compiled/index.html` file.
 
 #### compile:styles
-This task takes care of converting your LESS files into a concatenated `application.css`.
+This task takes care of converting your LESS files into a bundle named `application.css`. Note that `app.less` is the entry point
+for the LESS compiler, so all LESS files need to be imported or referenced using `@import` syntax within this file.
 
 #### compile:templates
 This task takes care of converting all of your HTML templates in `/app/src` into an
@@ -174,19 +175,6 @@ tasks will open your browser and watch for changes to source files.
   * Start server and record API responses into JSON files for mocking
 * `gulp server:mock`
   * Start server and mock API responses using your recorded JSON files
-
-
-## Converting from Grunt Template
-
-The previous iteration of this template used Grunt for running tasks. While this approach may still work, it is
-recommended that everyone move over to Gulp. The only files you need to modify are:
-
-* `karma.conf.js`
-* `index.html`
-* `app/scripts/app.js`
-
-Ensure that these files contain the proper comments necessary for Gulp inject and wiredep, and that you are including
-the template cache module in your app.js dependencies.
 
 ## Testing
 
