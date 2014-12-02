@@ -197,7 +197,7 @@ This mode will also automatically watch for changes in your test files, and reru
 if execution is currently paused because of a `debugger` statement, the tests won't rerun. You can either continue
 execution or simply reload the page to run the tests again.
 
-### deployment
+### During Deployment
 
 During deployment if using the default Encore UI Jenkins Pipeline, the script located in `bin/run-e2e` will be run for both **Staging** and **Preprod** environments upon deployment of the project for each of those environments.
 
