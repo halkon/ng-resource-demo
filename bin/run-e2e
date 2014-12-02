@@ -1,4 +1,5 @@
 #!/bin/bash
+PROTRACTOR_PATH="./node_modules/protractor/bin"
 
 ENVIRONMENT=$1
 
@@ -14,8 +15,8 @@ npm install --loglevel=warn
 # Let's get the credentials
 cp ~/secrets.js ./test/secrets.js
 
-./node_modules/protractor/bin/webdriver-manager update --standalone
-./node_modules/protractor/bin/webdriver-manager start --standalone 2> /dev/null 1> /dev/null &
+$PROTRACTOR_PATH/webdriver-manager update --standalone
+$PROTRACTOR_PATH/webdriver-manager start --standalone 2> /dev/null 1> /dev/null &
 
 # wait for selenium server to actually come up
 sleep 5
@@ -27,4 +28,4 @@ if [ $ENVIRONMENT == "preprod" ]; then
     CONF="test/conf/protractor.preprod.conf.js"
 fi
 
-./node_modules/protractor/bin/protractor $CONF
+$PROTRACTOR_PATH/protractor $CONF
