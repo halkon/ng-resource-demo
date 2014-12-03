@@ -1,0 +1,54 @@
+#!/bin/bash
+
+##################################################
+#
+# This script will be automatically called for
+# jenkins when a deployment to "Staging" or
+# "Preprod" occur.
+# Currently, this script will only be called
+# with one argument: "staging" or "preprod"
+#
+# Jenkins will call the script like so (depending on Environment)
+#
+# bash -ex bin/run-e2e staging
+# bash -ex bin/run-e2e preprod
+#
+##################################################
+
+# Path to protractor home
+PROTRACTOR_PATH="./node_modules/protractor/bin"
+
+# Running Environment, passed from Jenkins
+ENVIRONMENT=$1
+
+if [ -z $ENVIRONMENT ]; then
+    echo 'No Environment Found'
+    exit -1
+fi
+
+# Let's set up the necessary things for testing
+npm install --loglevel=warn
+
+
+# Let's get the credentials
+cp ~/secrets.js ./test/secrets.js
+
+# Check for any selenium updates
+$PROTRACTOR_PATH/webdriver-manager update --standalone
+$PROTRACTOR_PATH/webdriver-manager start --standalone 2> /dev/null 1> /dev/null &
+
+# wait for selenium server to actually come up
+sleep 5
+
+echo "Running tests..."
+
+# Set's default configuration
+CONF="test/conf/protractor.e2e.conf.js"
+
+# Preprod specific configuration (LIVE SYSTEMS!!)
+if [ $ENVIRONMENT == "preprod" ]; then
+    CONF="test/conf/protractor.preprod.conf.js"
+fi
+
+# Run the test things
+$PROTRACTOR_PATH/protractor $CONF
