@@ -15,7 +15,8 @@
     "mousetrap-bind-element": "~1.0.1",
     "html2canvas": "~0.4.1",
     "momentjs": "~2.5.0",
-    "encore-ui": "latest"
+    "encore-ui": "latest",
+    "encore-ui-svcs": "latest"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.15",
