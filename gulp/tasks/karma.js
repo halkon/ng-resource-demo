@@ -5,7 +5,7 @@ var wiredep = require('wiredep').stream;
 var karmaConf = process.cwd() + '/karma.conf.js';
 
 // Run test once and exit
-gulp.task('karma:single', ['lint'], function (done) {
+gulp.task('karma:single', ['lint', 'compile'], function (done) {
     karma.start(_.assign({}, { singleRun: true, configFile: karmaConf }), done);
 });
 
@@ -17,11 +17,6 @@ gulp.task('karma:debug', function (done) {
         preprocessors: {},
         configFile: karmaConf
     }), done);
-});
-
-// Watch for file changes and re-run tests on each change
-gulp.task('karma:watch', function (done) {
-    karma.start(_.assign({}, { configFile: karmaConf }), done);
 });
 
 // Run Karma using the threshold reporter
