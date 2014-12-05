@@ -28,7 +28,6 @@ module.exports = function(config) {
             'compiled/bower_components/momentjs/moment.js',
             'compiled/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
             'compiled/bower_components/angular-hotkeys/build/hotkeys.min.js',
-            'compiled/bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js',
             'compiled/bower_components/encore-ui/encore-ui-tpls.js',
             'compiled/bower_components/url/url.js',
             'compiled/bower_components/encore-ui-svcs/dist/encore-ui-svcs.js',
