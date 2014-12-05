@@ -80,8 +80,7 @@ As such, here are a few things to keep in mind.
 ## Development
 
 Gulp is used for starting a development server and watching your files. Any changes made
-to files while in `watch` mode will trigger linting via JSHint and JSCS, a single pass
-of Karma, and a refresh in your browser via LiveReload.
+to files while in `watch` mode will trigger linting via JSHint and JSCS and a refresh in your browser via LiveReload.
 
 A Connect server is used to serve files from within the `/compiled` directory, and Prism is being
 used as Connect middleware to offer proxy support for any API calls you need to make.
@@ -159,6 +158,9 @@ These tasks run tests.
   * Run Karma in debug mode using Chrome
 * `gulp karma:threshold`
   * Run Karma in a single pass and fail if coverage is too low
+
+Alternatively, you can use the Karma CLI via `karma start`, and this will not interfere with Gulp output. This is
+helpful if you want to catch compile errors without Karma output pushing them out of sight.
 
 #### karma:wiredep
 This task injects bower dependencies into `karma.conf.js`

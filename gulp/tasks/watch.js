@@ -12,7 +12,7 @@ gulp.task('watch', function () {
     gulp.watch(indexFile, ['compile:index']);
     gulp.watch(styleSources, ['compile:styles']);
     gulp.watch(templateSources, ['compile:templates']);
-    gulp.watch([scriptSources, indexFile], ['karma:single']);
+    gulp.watch([scriptSources, indexFile], ['compile:scripts']);
 
     gulp.watch([srcPath + '/src/**/*']).on('change', refresh.changed);
     gulp.watch('bower.json', ['karma:wiredep', 'compile:index']);

@@ -46,6 +46,7 @@ gulp.task('compile:fonts', function () {
 // Place your (pre)compiling/transpiling logic here
 gulp.task('compile:scripts', function () {
     return gulp.src(srcPath + '/src/**/*.js')
+        .pipe(plumber())
         .pipe(ngAnnotate())
         .pipe(gulp.dest(compilePath + '/src'));
 });//compile:scripts
