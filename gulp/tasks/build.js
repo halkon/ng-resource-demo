@@ -17,7 +17,7 @@ gulp.task('build:clean', function () {
     return gulp.src(buildPath + '/*').pipe(rm());
 });//build:clean
 
-gulp.task('build', ['compile', 'build:clean', 'build:images', 'karma:build'], function () {
+gulp.task('build', ['compile:build', 'build:clean', 'build:images', 'karma:build'], function () {
     var assets = useref.assets();
 
     return gulp.src(compilePath + '/index.html')
@@ -32,7 +32,7 @@ gulp.task('build', ['compile', 'build:clean', 'build:images', 'karma:build'], fu
 });//build
 
 // compress/minify all images
-gulp.task('build:images', ['compile'], function (done) {
+gulp.task('build:images', ['compile:build'], function (done) {
     // Reference for optimization levels:
     // https://github.com/gruntjs/grunt-contrib-imagemin#optimizationlevel-png
     var imageminOptions = {
@@ -54,6 +54,6 @@ gulp.task('build:images', ['compile'], function (done) {
     done();
 });//build:images
 
-gulp.task('build:docs', ['compile'], function () {
+gulp.task('build:docs', ['compile:build'], function () {
     // TODO: task to build ngdocs in {global.config.docsPath}
 });//build:docs
