@@ -109,7 +109,7 @@ gulp.task('compile', ['lint'], function (cb) {
     ], cb);
 });//compile
 
-gulp.task('compile:build', ['lint'], function (cb) {
+gulp.task('compile:build', ['lint:strict'], function (cb) {
     // run compile:clean before everything else
     runSequence('compile:clean', [
         'compile:fonts',
