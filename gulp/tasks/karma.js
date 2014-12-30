@@ -10,7 +10,7 @@ gulp.task('karma:single', ['lint', 'compile'], function (done) {
 });
 
 // Run tests in debug mode
-gulp.task('karma:debug', function (done) {
+gulp.task('karma:debug', ['lint', 'compile'], function (done) {
     karma.start(_.assign({}, {
         singleRun: false,
         browsers: ['Chrome'],
@@ -20,7 +20,7 @@ gulp.task('karma:debug', function (done) {
 });
 
 // Run Karma using the threshold reporter
-gulp.task('karma:threshold', ['lint'], function (done) {
+gulp.task('karma:threshold', ['lint', 'compile'], function (done) {
     karma.start(_.assign(
         { reporters: ['coverage', 'threshold'] },
         { singleRun: true, configFile: karmaConf }), done);

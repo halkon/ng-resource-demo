@@ -14,10 +14,11 @@ var lintPaths = [
 // JSHint and jscs
 gulp.task('lint', function () {
     return gulp.src(lintPaths)
-        .pipe(plumber())
+        .pipe(plumber()) // Handle errors to prevent exit of Gulp process
         .pipe(jscs())
         .pipe(jshint())
-        .pipe(jshint.reporter(stylish)); // Console output
+        .pipe(jshint.reporter(stylish)) // Console output
+        .pipe(jshint.reporter('fail')); // Fail on errors
 });//lint
 
 gulp.task('lint:strict', function () {

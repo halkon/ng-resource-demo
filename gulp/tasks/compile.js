@@ -47,6 +47,7 @@ gulp.task('compile:fonts', function () {
 gulp.task('compile:scripts', function () {
     return gulp.src(srcPath + '/src/**/*.js')
         .pipe(plumber())
+        .pipe(newer(compilePath + '/src')) // filter newer files
         .pipe(ngAnnotate())
         .pipe(gulp.dest(compilePath + '/src'));
 });//compile:scripts
@@ -97,7 +98,18 @@ gulp.task('compile:templates', function () {
         .pipe(gulp.dest(compilePath));
 });//compile:templates
 
-gulp.task('compile', function (cb) {
+gulp.task('compile', ['lint'], function (cb) {
+    runSequence([
+        'compile:fonts',
+        'compile:images',
+        'compile:index',
+        'compile:scripts',
+        'compile:styles',
+        'compile:templates'
+    ], cb);
+});//compile
+
+gulp.task('compile:build', ['lint'], function (cb) {
     // run compile:clean before everything else
     runSequence('compile:clean', [
         'compile:fonts',
@@ -107,4 +119,4 @@ gulp.task('compile', function (cb) {
         'compile:styles',
         'compile:templates'
     ], cb);
-});//compile
+});//compile:clean
