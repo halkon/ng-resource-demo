@@ -154,6 +154,8 @@ These tasks run tests.
 
 * `gulp karma:single`
   * Run Karma in a single pass
+* `gulp karma:watch`
+  * Run only the specs pertinent to the changed file
 * `gulp karma:debug`
   * Run Karma in debug mode using Chrome
 * `gulp karma:threshold`
