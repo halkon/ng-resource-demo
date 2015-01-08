@@ -18,14 +18,14 @@ gulp.task('karma:watch', ['lint', 'compile'], function () {
         var filename = path.basename(path.basename(event.path, '.js'), '.spec');
 
         runSequence('lint', 'compile:scripts', function () {
-            karma.start(_.assign({}, {
+            karma.start({
                 singleRun: true,
                 configFile: karmaConf,
                 exclude: [global.config.compilePath + '/src/**/!(' + filename + ').spec.js']
 
             // The default value of the third argument is process.exit,
             // which would terminate the gulp task.
-            }), _.noop);
+            }, _.noop);
         });
     });
 });
