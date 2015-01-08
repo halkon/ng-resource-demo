@@ -111,12 +111,5 @@ gulp.task('compile', ['lint'], function (cb) {
 
 gulp.task('compile:build', ['lint:strict'], function (cb) {
     // run compile:clean before everything else
-    runSequence('compile:clean', [
-        'compile:fonts',
-        'compile:images',
-        'compile:index',
-        'compile:scripts',
-        'compile:styles',
-        'compile:templates'
-    ], cb);
-});//compile:clean
+    runSequence('compile:clean', [ 'compile' ], cb);
+});//compile:build

@@ -18,7 +18,7 @@ gulp.task('server:stubbed:watch', ['open', 'watch'], function () {
         .pipe(shell(['node_modules/stubby/bin/stubby -md mocks.json -l localhost -s 3000']));
 
     prismInit('stubbed');
-});
+});//server:stubbed:watch
 
 gulp.task('server:mock', ['open', 'watch'], function () {
     prismInit('mock');

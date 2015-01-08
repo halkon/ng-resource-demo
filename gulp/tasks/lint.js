@@ -1,7 +1,7 @@
 var gulp = require('gulp');
-var plumber = require('gulp-plumber');
 var jscs = require('gulp-jscs');
 var jshint = require('gulp-jshint');
+var plumber = require('gulp-plumber');
 var stylish = require('jshint-stylish');
 
 var srcPath = global.config.srcPath;
