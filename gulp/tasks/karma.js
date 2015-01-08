@@ -2,11 +2,32 @@ var gulp = require('gulp');
 var _ = require('lodash');
 var karma = require('karma').server;
 var wiredep = require('wiredep').stream;
+var runSequence = require('run-sequence').use(gulp);
+var path = require('path');
 var karmaConf = process.cwd() + '/karma.conf.js';
 
 // Run test once and exit
 gulp.task('karma:single', ['lint', 'compile'], function (done) {
     karma.start(_.assign({}, { singleRun: true, configFile: karmaConf }), done);
+});
+
+// Watch files, running only the spec for the changed script or spec
+gulp.task('karma:watch', ['lint', 'compile'], function () {
+    gulp.watch(global.config.srcPath + '/src/**/*.js').on('change', function (event) {
+        // Extract the filename without extension from the path.
+        var filename = path.basename(path.basename(event.path, '.js'), '.spec');
+
+        runSequence('lint', 'compile:scripts', function () {
+            karma.start({
+                singleRun: true,
+                configFile: karmaConf,
+                exclude: [global.config.compilePath + '/src/**/!(' + filename + ').spec.js']
+
+            // The default value of the third argument is process.exit,
+            // which would terminate the gulp task.
+            }, _.noop);
+        });
+    });
 });
 
 // Run tests in debug mode

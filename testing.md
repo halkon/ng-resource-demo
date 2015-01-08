@@ -64,11 +64,13 @@ Testing is setup to run through the `grunt test` command. Running this should ex
 
 Goal: Tests smallest piece of functionality or method
 
-Use `grunt test:unit` to run these tests apart from running midway/e2e tests
+Use `gulp karma:single` to run these tests apart from running midway/e2e tests
 
 When you're making a lot of unit test related changes, it's faster to leave PhantomJS running (rather than spinning up a new instance every time). Use the following command to have grunt 'watch' your files:
 
-`grunt test:dev`
+`gulp karma:debug`
+
+Note: While any one of the `gulp server` tasks is running, the unit tests will automatically be executed on file changes, and a `gulp karma` task is not necessary.
 
 ### Testing Individual Components
 
@@ -78,9 +80,7 @@ When developing a specific component, you likely don't want to run the entire te
 
 **Be sure to remove the `only` once you're done.**
 
-#### Full Browser Regression
-
-By default, unit tests are only executed against PhantomJS. In order to test across Firefox, Chrome, Chrome Canary and Safari, run `grunt karma:full` (note 'karma', not 'test'). **Make sure you have all 4 browsers installed first**.
+An alternative to using `only` is the `karma:watch` task. This task will watch for file changes and run only the spec that corresponds to the changed script or the spec itself if it was changed.
 
 #### Code Coverage
 
