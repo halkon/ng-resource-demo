@@ -17,6 +17,15 @@ var plumber = require('gulp-plumber');
 var runSequence = require('run-sequence');
 var wiredep = require('wiredep').stream;
 
+var compilationTasks = [
+    'compile:fonts',
+    'compile:images',
+    'compile:index',
+    'compile:scripts',
+    'compile:styles',
+    'compile:templates'
+];
+
 // Clean up the /compiled directory
 gulp.task('compile:clean', function () {
     var sources = [
@@ -99,17 +108,10 @@ gulp.task('compile:templates', function () {
 });//compile:templates
 
 gulp.task('compile', ['lint'], function (cb) {
-    runSequence([
-        'compile:fonts',
-        'compile:images',
-        'compile:index',
-        'compile:scripts',
-        'compile:styles',
-        'compile:templates'
-    ], cb);
+    runSequence(compilationTasks, cb);
 });//compile
 
 gulp.task('compile:build', ['lint:strict'], function (cb) {
     // run compile:clean before everything else
-    runSequence('compile:clean', [ 'compile' ], cb);
+    runSequence('compile:clean', compilationTasks, cb);
 });//compile:build
