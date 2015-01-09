@@ -1,8 +1,8 @@
 var gulp = require('gulp');
 var refresh  = require('gulp-livereload');
 
-var srcPath = global.config.srcPath;
 var compilePath = global.config.compilePath;
+var srcPath = global.config.srcPath;
 
 gulp.task('watch', function () {
     gulp.watch(srcPath + '/index.html', ['compile:index']);

@@ -13,7 +13,7 @@ var uglify = require('gulp-uglify');
 var useref = require('gulp-useref');
 
 // clean the buildPath directory
-gulp.task('build:clean', ['lint:strict'], function () {
+gulp.task('build:clean', function () {
     return gulp.src(buildPath + '/*').pipe(rm());
 });//build:clean
 
