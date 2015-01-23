@@ -1,4 +1,5 @@
-angular.module('encoreApp', ['ngRoute', 'ngResource', 'encore.ui', 'encore.svcs.encore', 'encoreApp.tpls', 'HomeSvcs'])
+angular.module('encoreApp', ['ngRoute', 'ngResource', 'encore.ui', 'encore.svcs.encore',
+        'encoreApp.tpls', 'HomeSvcs', 'encore.svcs.supportService'])
     .config(function ($routeProvider, $locationProvider, $httpProvider) {
         $routeProvider
             .when('/home', {
