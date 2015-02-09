@@ -99,15 +99,18 @@ module.exports = Page.create({
         value: function (username, password) {
             var definedArgs = _.filter(arguments, function (arg) { return arg !== undefined; });
             switch (_.size(definedArgs)) {
-                case 0:
+                case 0: {
                     username = _.first(_.keys(browser.params.logins));
                     password = browser.params.logins[username];
                     break;
-                case 1:
+                }
+                case 1: {
                     password = browser.params.logins[username];
                     break;
-                default:
+                }
+                default: {
                     break;
+                }
             }
             this.setLocalStorage(username, password);
             this.go();

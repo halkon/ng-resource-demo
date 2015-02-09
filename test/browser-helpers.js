@@ -119,7 +119,7 @@ helpers = {
             } else {
                 return (angular.element(child).attr(this.dataAttribute) === this.childTitle);
             }
-        }, {childTitle: childTitle, dataAttribute: dataAttribute});
+        }, { childTitle: childTitle, dataAttribute: dataAttribute });
 
         // We're going to massage this into a jQueryLite element
         if (foundChildDiv) {
@@ -152,10 +152,9 @@ helpers = {
     }
 };
 
-
 // PhantomJS does not currently have a 'bind' function on functions. This polyfills it in
 if (!Function.prototype.bind) {
-    Function.prototype.bind = function(oThis) {
+    Function.prototype.bind = function (oThis) {
         if (typeof this !== 'function') {
             // closest thing possible to the ECMAScript 5 internal IsCallable function
             throw new TypeError('Function.prototype.bind - what is trying to be bound is not callable');
@@ -163,8 +162,8 @@ if (!Function.prototype.bind) {
 
         var aArgs = Array.prototype.slice.call(arguments, 1),
             fToBind = this,
-            FNOP = function() {},
-            fBound = function() {
+            FNOP = function () {},
+            fBound = function () {
                 return fToBind.apply(this instanceof FNOP && oThis ? this : oThis,
                     aArgs.concat(Array.prototype.slice.call(arguments)));
             };
