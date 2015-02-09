@@ -8,7 +8,8 @@ var srcPath = global.config.srcPath;
 
 var lintPaths = [
     srcPath + '/src/**/*.js',
-    './gulp/tasks/*.js'
+    './gulp/tasks/*.js',
+    './test/**/*.js'
 ];
 
 // JSHint and jscs
