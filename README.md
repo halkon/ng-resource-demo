@@ -9,8 +9,7 @@ There are a few things you should know about before you start coding.
 * `cd {{yourAppName}}`
 * `rm -r .git`
 * `git init` -- This will make sure you aren't working out of the template repo.
-* `npm install`
-* `bower install`
+* `npm install` (npm post-install script will automatically run `bower install`)
 * Set `name` in `package.json` to `{{yourAppName}}`
 * Set `appName` in `config.json` to `{{yourAppName}}`
 * Set `baseHref` in `config.json` to `/{{yourAppName}}/`
