@@ -20,7 +20,7 @@ describe('Home Page @dev', function () {
     });
 
     it('should have a content heading', function () {
-        expect(homePage.contentTitle).to.eventually.equal('Page Title');
+        expect(homePage.contentTitle).to.eventually.equal('Hello Developer');
     });
 
     after(function () {
