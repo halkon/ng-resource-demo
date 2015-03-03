@@ -47,7 +47,7 @@ module.exports = function(config) {
 
         // test results reporter to use
         // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
-        reporters: ['mocha', 'coverage'],
+        reporters: ['mocha', 'coverage', 'threshold'],
 
         coverageReporter: {
             type : 'html',
