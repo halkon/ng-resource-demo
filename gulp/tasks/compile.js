@@ -73,7 +73,10 @@ gulp.task('compile:index', function () {
 // compile LESS to {compilePath}/application.css
 gulp.task('compile:styles', function () {
     return gulp.src(srcPath + '/src/app.less')
-        .pipe(plugins.plumber())
+        .pipe(plugins.plumber(function (err) {
+            plugins.util.log(err.message);
+            this.emit('end');
+        }))
         .pipe(plugins.less())
         .pipe(plugins.concat('application.css'))
         .pipe(gulp.dest(compilePath));
