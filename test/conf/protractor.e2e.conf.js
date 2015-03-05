@@ -14,6 +14,7 @@ exports.config = {
     // A base URL for your application under test. Calls to protractor.get()
     // with relative paths will be prepended with this.
     baseUrl: 'https://staging.encore.rackspace.com',
+    rootElement: '[ng-app]',
 
     specs: [
         '../stories/*.js'

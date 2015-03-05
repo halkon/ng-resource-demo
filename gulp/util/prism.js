@@ -10,7 +10,6 @@ module.exports = function prismInit (prismMode) {
 
     prism.create({
         name: 'login',
-        mode: prismMode,
         context: '/login',
         host: 'staging.encore.rackspace.com',
         port: 443,
@@ -26,7 +25,6 @@ module.exports = function prismInit (prismMode) {
 
     prism.create({
         name: 'app',
-        mode: 'proxy',
         context: '/' + baseHref,
         host: 'localhost',
         port: 9000,

@@ -10,17 +10,17 @@ describe('Login Page', function () {
 
     it('should not log you in with a blank username and password', function () {
         loginPage.enterLoginCredentials('', '');
-        expect(loginPage.currentUrl).to.eventually.contain('login');
+        expect(browser.getCurrentUrl()).to.eventually.contain('login');
     });
 
     it('should not log you in with a blank username', function () {
         loginPage.enterLoginCredentials('', 'pass');
-        expect(loginPage.currentUrl).to.eventually.contain('login');
+        expect(browser.getCurrentUrl()).to.eventually.contain('login');
     });
 
     it('should not log you in with a blank password', function () {
         loginPage.enterLoginCredentials('user', '');
-        expect(loginPage.currentUrl).to.eventually.contain('login');
+        expect(browser.getCurrentUrl()).to.eventually.contain('login');
     });
 
     it('should not log you in with invalid credentials', function () {
@@ -40,7 +40,7 @@ describe('Login Page', function () {
 
         // FIXME: Once you've changed your team's appName in tasks/util/config,
         // FIXME: and your protractor conf's loginRedirect parameter, unskip these.
-        _.forEach(loginPage.driver.params.logins, function (stagingPassword, stagingLogin) {
+        _.forEach(browser.params.logins, function (stagingPassword, stagingLogin) {
             it.skip('should log you in as ' + stagingLogin.slice(0, 4) + '***** @staging', function () {
                 loginPage.login(stagingLogin, stagingPassword);
                 expect(loginPage.isLoggedIn()).to.eventually.be.true;
