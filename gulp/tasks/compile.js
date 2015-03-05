@@ -4,16 +4,8 @@ var compilePath = global.config.compilePath;
 var del = global.gulpUtil.delete;
 var srcPath = global.config.srcPath;
 
-var angularFilesort = require('gulp-angular-filesort');
-var concat = require('gulp-concat');
 var gulp = require('gulp');
-var injector = require('gulp-inject');
-var less = require('gulp-less');
-var minifyHtml = require('gulp-minify-html');
-var newer = require('gulp-newer');
-var ngAnnotate = require('gulp-ng-annotate');
-var ngHtml2Js = require('gulp-ng-html2js');
-var plumber = require('gulp-plumber');
+var plugins = require('gulp-load-plugins')();
 var runSequence = require('run-sequence');
 var wiredep = require('wiredep').stream;
 
@@ -40,7 +32,7 @@ gulp.task('compile:images', function () {
     var imgDest = compilePath + '/src';
 
     return gulp.src(srcPath + '/src/**/images/**/*')
-        .pipe(newer(imgDest)) // filter newer files
+        .pipe(plugins.newer(imgDest)) // filter newer files
         .pipe(gulp.dest(imgDest));
 });//compile:images
 
@@ -48,16 +40,16 @@ gulp.task('compile:fonts', function () {
     var fontDest = compilePath + '/src';
 
     return gulp.src(srcPath + '/src/**/fonts/**/*')
-        .pipe(newer(fontDest)) // filter newer files
+        .pipe(plugins.newer(fontDest)) // filter newer files
         .pipe(gulp.dest(fontDest));
 });//compile:fonts
 
 // Place your (pre)compiling/transpiling logic here
 gulp.task('compile:scripts', function () {
     return gulp.src(srcPath + '/src/**/*.js')
-        .pipe(plumber())
-        .pipe(newer(compilePath + '/src')) // filter newer files
-        .pipe(ngAnnotate())
+        .pipe(plugins.plumber())
+        .pipe(plugins.newer(compilePath + '/src')) // filter newer files
+        .pipe(plugins.ngAnnotate())
         .pipe(gulp.dest(compilePath + '/src'));
 });//compile:scripts
 
@@ -69,21 +61,21 @@ gulp.task('compile:index', function () {
         '!' + srcPath + '/src/**/*.spec.js',
         '!' + srcPath + '/src/app.js'
     ];
-    var scriptSources = gulp.src(scriptSourcePaths).pipe(angularFilesort());
+    var scriptSources = gulp.src(scriptSourcePaths).pipe(plugins.angularFilesort());
 
     return gulp.src(srcPath + '/index.html')
         .pipe(gulp.dest(compilePath))
         .pipe(wiredep({ directory: bowerPath }))
-        .pipe(injector(scriptSources, { ignorePath: 'app', addRootSlash: false }))
+        .pipe(plugins.inject(scriptSources, { ignorePath: 'app', addRootSlash: false }))
         .pipe(gulp.dest(compilePath));
 });//compile:index
 
 // compile LESS to {compilePath}/application.css
 gulp.task('compile:styles', function () {
     return gulp.src(srcPath + '/src/app.less')
-        .pipe(plumber())
-        .pipe(less())
-        .pipe(concat('application.css'))
+        .pipe(plugins.plumber())
+        .pipe(plugins.less())
+        .pipe(plugins.concat('application.css'))
         .pipe(gulp.dest(compilePath));
 });//compile:styles
 
@@ -101,9 +93,9 @@ gulp.task('compile:templates', function () {
     };
 
     return gulp.src(srcPath + '/src/**/*.html')
-        .pipe(minifyHtml(minifyHtmlOptions))
-        .pipe(ngHtml2Js(ngHtml2JsOptions))
-        .pipe(concat('templates.js'))
+        .pipe(plugins.minifyHtml(minifyHtmlOptions))
+        .pipe(plugins.ngHtml2js(ngHtml2JsOptions))
+        .pipe(plugins.concat('templates.js'))
         .pipe(gulp.dest(compilePath));
 });//compile:templates
 

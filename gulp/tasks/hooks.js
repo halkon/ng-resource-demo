@@ -1,10 +1,10 @@
 var gulp = require('gulp');
-var symlink = require('gulp-symlink');
+var plugins = require('gulp-load-plugins')();
 
 gulp.task('hooks', function () {
   return gulp.src('gulp/hooks/pre-commit')
-    .pipe(symlink(function () {
-        return new symlink.File({
+    .pipe(plugins.symlink(function () {
+        return new plugins.symlink.File({
             cwd: process.cwd(),
             path: '.git/hooks/pre-commit'
         });

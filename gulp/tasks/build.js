@@ -2,15 +2,9 @@ var compilePath = global.config.compilePath;
 var buildPath = global.config.buildPath;
 var bowerPath = global.config.bowerPath;
 
-var csso = require('gulp-csso');
 var gulp = require('gulp');
-var gulpif = require('gulp-if');
-var imagemin = require('gulp-imagemin');
-var rev = require('gulp-rev');
-var revReplace = require('gulp-rev-replace');
+var plugins = require('gulp-load-plugins')();
 var rm = global.gulpUtil.delete;
-var uglify = require('gulp-uglify');
-var useref = require('gulp-useref');
 
 // clean the buildPath directory
 gulp.task('build:clean', function () {
@@ -18,16 +12,16 @@ gulp.task('build:clean', function () {
 });//build:clean
 
 gulp.task('build', ['compile:build', 'build:clean', 'build:images', 'karma:build'], function () {
-    var assets = useref.assets();
+    var assets = plugins.useref.assets();
 
     return gulp.src(compilePath + '/index.html')
         .pipe(assets) // scripts & stylesheets
-        .pipe(gulpif('*.js', uglify())) // minify JS
-        .pipe(gulpif('*.css', csso()))  // minify CSS
-        .pipe(rev())
+        .pipe(plugins.if('*.js', plugins.uglify())) // minify JS
+        .pipe(plugins.if('*.css', plugins.csso()))  // minify CSS
+        .pipe(plugins.rev())
         .pipe(assets.restore())
-        .pipe(useref())
-        .pipe(revReplace())
+        .pipe(plugins.useref())
+        .pipe(plugins.revReplace())
         .pipe(gulp.dest(buildPath));
 });//build
 
@@ -48,7 +42,7 @@ gulp.task('build:images', ['compile:build'], function (done) {
         .pipe(gulp.dest(buildPath + '/styles/images'));
 
     gulp.src(compilePath + '/images/**/*')
-        .pipe(imagemin(imageminOptions))
+        .pipe(plugins.imagemin(imageminOptions))
         .pipe(gulp.dest(buildPath));
 
     done();
