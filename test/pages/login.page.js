@@ -91,6 +91,14 @@ module.exports = Page.create({
                 } else {
                     page.loginLocalhost(username, password);
                 }
+
+                browser.wait(function () {
+                    return browser.waitForAngular().then(function () {
+                        return true;
+                    }, function () {
+                        return false;
+                    });
+                }, 10000);
             });
         }
     },
