@@ -1,10 +1,8 @@
 var prismInit = global.gulpUtil.prismInit;
 var testPath = global.config.testPath;
 
-var concat = require('gulp-concat');
 var gulp = require('gulp');
-var shell = require('gulp-shell');
-var yaml = require('gulp-yaml');
+var plugins = require('gulp-load-plugins')();
 
 gulp.task('server', ['open', 'watch'], function () {
     prismInit('proxy');
@@ -12,10 +10,10 @@ gulp.task('server', ['open', 'watch'], function () {
 
 gulp.task('server:stubbed:watch', ['open', 'watch'], function () {
     gulp.src(testPath + '/api-mocks/**/*.yaml')
-        .pipe(concat('mocks.yaml'))
-        .pipe(yaml({ space: 2 }))
+        .pipe(plugins.concat('mocks.yaml'))
+        .pipe(plugins.yaml({ space: 2 }))
         .pipe(gulp.dest('.'))
-        .pipe(shell(['node_modules/stubby/bin/stubby -md mocks.json -l localhost -s 3000']));
+        .pipe(plugins.shell(['node_modules/stubby/bin/stubby -md mocks.json -l localhost -s 3000']));
 
     prismInit('stubbed');
 });//server:stubbed:watch

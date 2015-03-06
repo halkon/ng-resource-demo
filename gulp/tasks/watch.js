@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-var refresh  = require('gulp-livereload');
+var plugins = require('gulp-load-plugins')();
 
 var compilePath = global.config.compilePath;
 var srcPath = global.config.srcPath;
@@ -13,6 +13,6 @@ gulp.task('watch', function () {
     gulp.watch([
         compilePath + '/src/**/*',
         compilePath + '/templates.js'
-    ]).on('change', refresh.changed);
+    ]).on('change', plugins.livereload.changed);
     gulp.watch('bower.json', ['karma:wiredep', 'compile:index']);
 });//watch
