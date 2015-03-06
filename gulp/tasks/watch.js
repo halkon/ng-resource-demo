@@ -12,6 +12,7 @@ gulp.task('watch', function () {
 
     gulp.watch([
         compilePath + '/src/**/*',
+        compilePath + '/application.css',
         compilePath + '/templates.js'
     ]).on('change', plugins.livereload.changed);
     gulp.watch('bower.json', ['karma:wiredep', 'compile:index']);
