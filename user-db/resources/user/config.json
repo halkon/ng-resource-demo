@@ -1,0 +1,29 @@
+{
+	"type": "Collection",
+	"properties": {
+		"first": {
+			"name": "first",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "first",
+			"order": 0
+		},
+		"last": {
+			"name": "last",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "last",
+			"order": 1
+		},
+		"lazy": {
+			"name": "lazy",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": false,
+			"id": "lazy",
+			"order": 2
+		}
+	}
+}
