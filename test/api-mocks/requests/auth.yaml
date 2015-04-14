@@ -1,0 +1,80 @@
+-   request:
+        url: ^/api/identity/tokens$
+        method: POST
+        post: '{"auth":{"RAX-AUTH:domain":{"name":"Rackspace"},"RAX-AUTH:rsaCredentials":{"username":"racker","tokenKey":"pass"}}}'
+    response:
+        status: 200
+        body: '{"access": {"token": {"expires": "2099-05-09T20:19:16.614Z","id": "racker"},"user": {"id": "racker"}}}'
+        headers:
+          Set-Cookie: X-Auth-Token=racker
+
+-   request:
+        url: ^/\*$
+        method: OPTIONS
+        headers:
+          X-Auth-Token: racker
+    response:
+        status: 200
+        content-type: application/json
+        file: test/api-mocks/responses/auth/roles/racker.json
+
+-   request:
+        url: ^/api/identity/tokens$
+        method: POST
+        post: '{"auth":{"RAX-AUTH:domain":{"name":"Rackspace"},"RAX-AUTH:rsaCredentials":{"username":"admin","tokenKey":"pass"}}}'
+    response:
+        status: 200
+        body: '{"access": {"token": {"expires": "2099-05-09T20:19:16.614Z","id": "racker"},"user": {"id": "admin"}}}'
+        headers:
+          Set-Cookie: X-Auth-Token=admin
+
+-   request:
+        url: ^/\*$
+        method: OPTIONS
+        headers:
+          X-Auth-Token: admin
+    response:
+        status: 200
+        content-type: application/json
+        file: test/api-mocks/responses/auth/roles/admin.json
+
+-   request:
+        url: ^/api/identity/tokens$
+        method: POST
+        post: '{"auth":{"RAX-AUTH:domain":{"name":"Rackspace"},"RAX-AUTH:rsaCredentials":{"username":"architect","tokenKey":"pass"}}}'
+    response:
+        status: 200
+        body: '{"access": {"token": {"expires": "2099-05-09T20:19:16.614Z","id": "racker"},"user": {"id": "architect"}}}'
+        headers:
+          Set-Cookie: X-Auth-Token=architect
+
+-   request:
+        url: ^/\*$
+        method: OPTIONS
+        headers:
+          accept: application/json
+          X-Auth-Token: architect
+    response:
+        status: 200
+        content-type: application/json
+        file: test/api-mocks/responses/auth/roles/architect.json
+
+-   request:
+        url: ^/api/identity/tokens$
+        method: POST
+        post: '{"auth":{"RAX-AUTH:domain":{"name":"Rackspace"},"RAX-AUTH:rsaCredentials":{"username":"systemuser","tokenKey":"pass"}}}'
+    response:
+        status: 200
+        body: '{"access": {"token": {"expires": "2099-05-09T20:19:16.614Z","id": "racker"},"user": {"id": "systemuser"}}}'
+        headers:
+          Set-Cookie: X-Auth-Token=systemuser
+
+-   request:
+        url: ^/\*$
+        method: OPTIONS
+        headers:
+          X-Auth-Token: systemuser
+    response:
+        status: 200
+        content-type: application/json
+        file: test/api-mocks/responses/auth/roles/systemuser.json
