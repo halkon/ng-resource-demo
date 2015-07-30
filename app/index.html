@@ -23,8 +23,9 @@
             <rx-page>
                 <h1>Encore Sandbox - {demo item}</h1>
                 <div ng-controller="demoCtrl as demo">
-                    <div class="pull-left">
+                    <div class="pull-left" style="margin: 2em;">
                         <h1 class="lg">List Users</h1>
+                        <button class="width: 100%" ng-click="demo.fetchUsers()">Refresh List</button>
                         <div ng-repeat="user in demo.users">
                             <strong>getName</strong>: {{ user.getName() }}<br />
                             <strong>FIRST</strong>: {{ user.first }} - <strong>LAST</strong>: {{ user.last }}<br />
@@ -34,7 +35,7 @@
                             <hr />
                         </div>
                     </div>
-                    <div class="pull-left">
+                    <div class="pull-left" style="margin: 2em;">
                         <form class="form">
                             <label>First Name</label>
                             <input type="text" ng-model="formUser.first" />
