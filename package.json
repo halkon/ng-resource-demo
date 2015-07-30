@@ -84,6 +84,5 @@
     "node": ">=0.10.25"
   },
   "scripts": {
-    "postinstall": "gulp hooks && bower install"
   }
 }

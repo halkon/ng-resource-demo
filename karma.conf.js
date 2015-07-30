@@ -24,6 +24,7 @@ module.exports = function(config) {
             'compiled/bower_components/html2canvas/build/html2canvas.js',
             'compiled/bower_components/mousetrap/mousetrap.js',
             'compiled/bower_components/angular-hotkeys/build/hotkeys.min.js',
+            'compiled/bower_components/ng-debounce/angular-debounce.js',
             'compiled/bower_components/encore-ui/encore-ui-tpls.js',
             'compiled/bower_components/url/url.js',
             'compiled/bower_components/encore-ui-svcs/dist/encore-ui-svcs.js',

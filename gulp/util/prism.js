@@ -79,5 +79,18 @@ module.exports = function prismInit (prismMode) {
                 'api/support': '/api'
             }
         });
+
+        prism.create({
+            name: 'user',
+            mode: prismMode,
+            context: '/api/user',
+            host: 'localhost',
+            port: 2403,
+            https: false,
+            changeOrigin: true,
+            rewrite: {
+                'api/user': '/user'
+            }
+        });
     }
 };
