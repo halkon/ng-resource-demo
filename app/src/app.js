@@ -61,16 +61,19 @@ angular.module('encoreApp', ['ngResource', 'encore.ui', 'encore.svcs.encore',
         };
 
         var getUser = function (user) {
-            if (_.isString(user)) {
+            if (user instanceof User) {
+                vm.editUser = user;
+            } else if (_.isString(user)) {
                 vm.editUser = User.get({ id: user });
-            } else if (user instanceof User) {
-                vm.editUser = User;
             }
         };
 
-        var createUser = function (user) {
+        var saveUser = function (user) {
             user = new User(user);
-            return user.$save().finally(vm.fetchUsers);
+            return user.$save()
+                .then(resetEditUser)
+                .then(resetFormUser)
+                .finally(vm.fetchUsers);
         };
 
         var toggleLazy = function (user) {
@@ -78,15 +81,10 @@ angular.module('encoreApp', ['ngResource', 'encore.ui', 'encore.svcs.encore',
             user.$save();
         };
 
-        var getUserToEdit = function (id) {
-            vm.editUser = User.get({ id: id });
-            vm.editUser.$promise.then(console.log.bind(console, 'USER:'));
-        };
-
         vm.fetchUsers = fetchUsers;
-        vm.createUser = createUser;
+        vm.saveUser = saveUser;
         vm.toggleLazy = toggleLazy;
-        vm.getUserToEdit = getUserToEdit;
+        vm.getUser = getUser;
 
         // Init things
         vm.fetchUsers(resetFormUser, resetEditUser);

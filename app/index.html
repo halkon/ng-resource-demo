@@ -54,7 +54,7 @@
                             </div>
                             <div>
                                 <rx-button
-                                        ng-click="demo.editUser(user)"
+                                        ng-click="demo.getUser(user)"
                                         default-msg="Edit User From Instance"
                                         classes="finish "
                                         >
@@ -75,35 +75,87 @@
                         </div>
                     </div>
                     <div class="pull-left" style="margin: 1rem;">
-                        <h1 class="title xl" style="margin-top: 0;">Create a User</h1>
-                        <form rx-form class="form">
+                        <form rx-form class="form" ng-if="demo.editUser.id">
+                            <h1 class="title xl" style="margin-top: 0;">Edit User {{ demo.editUser.getName() }}</h1>
                             <rx-form-section>
                                 <rx-field>
                                     <rx-field-name>First Name</rx-field-name>
                                     <rx-field-content>
                                         <rx-input>
-                                            <input type="text" ng-model="formUser.first" />
+                                            <input type="text" ng-model="demo.editUser.first" />
                                         </rx-input>
                                     </rx-field-content>
 
                                     <rx-field-name>Last Name</rx-field-name>
                                     <rx-field-content>
                                         <rx-input>
-                                            <input type="text" ng-model="formUser.last" />
+                                            <input type="text" ng-model="demo.editUser.last" />
                                         </rx-input>
                                     </rx-field-content>
 
                                     <rx-field-name>Lazy?</rx-field-name>
                                     <rx-field-content>
                                         <rx-toggle-switch
-                                            ng-model="formUser.lazy"
+                                            ng-model="demo.editUser.lazy"
                                         </rx-toggle-switch>
                                     </rx-field-content>
 
                                     <rx-button
-                                            ng-click="demo.createUser(formUser)"
+                                            ng-click="demo.saveUser(demo.editUser)"
+                                            toggle-msg="Updating User"
+                                            default-msg="Update User"
+                                            classes="positive full-width">
+                                    </rx-button>
+                                </rx-field>
+                            </rx-form-section>
+                        </form>
+                        <form rx-form class="form" ng-if="!demo.editUser.id">
+                            <h1 class="title xl" style="margin-top: 0;">Create a User</h1>
+                            <rx-form-section>
+                                <rx-field>
+                                    <rx-field-name>First Name</rx-field-name>
+                                    <rx-field-content>
+                                        <rx-input>
+                                            <input type="text" ng-model="demo.formUser.first" />
+                                        </rx-input>
+                                    </rx-field-content>
+
+                                    <rx-field-name>Last Name</rx-field-name>
+                                    <rx-field-content>
+                                        <rx-input>
+                                            <input type="text" ng-model="demo.formUser.last" />
+                                        </rx-input>
+                                    </rx-field-content>
+
+                                    <rx-field-name>Lazy?</rx-field-name>
+                                    <rx-field-content>
+                                        <rx-toggle-switch
+                                            ng-model="demo.formUser.lazy"
+                                        </rx-toggle-switch>
+                                    </rx-field-content>
+
+                                    <rx-button
+                                            ng-click="demo.saveUser(demo.formUser)"
                                             toggle-msg="Creating User"
                                             default-msg="Create User"
+                                            classes="positive full-width">
+                                    </rx-button>
+                                </rx-field>
+                            </rx-form-section>
+                        </form>
+                        <form rx-form class="form">
+                            <rx-form-section>
+                                <rx-field>
+                                    <rx-field-name>Find By User ID</rx-field-name>
+                                    <rx-field-content>
+                                        <rx-input>
+                                            <input type="text" ng-model="editUserID" />
+                                        </rx-input>
+                                    </rx-field-content>
+                                    <rx-button
+                                            ng-click="demo.getUser(editUserID)"
+                                            toggle-msg="Finding User"
+                                            default-msg="Find User"
                                             classes="positive full-width">
                                     </rx-button>
                                 </rx-field>
