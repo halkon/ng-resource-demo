@@ -21,32 +21,93 @@
         <!-- Add your site or application content here -->
         <rx-app>
             <rx-page>
-                <h1>Encore Sandbox - {demo item}</h1>
                 <div ng-controller="demoCtrl as demo">
-                    <div class="pull-left" style="margin: 2em;">
-                        <h1 class="lg">List Users</h1>
-                        <button class="width: 100%" ng-click="demo.fetchUsers()">Refresh List</button>
+                    <div class="pull-left" style="margin: 1rem; max-width: 60%">
+                        <h1 class="title xl" style="margin-top: 0;">List Users</h1>
+                        <rx-button default-msg="Refresh List" classes="full-width" ng-click="demo.fetchUsers()">Refresh List</rx-button>
                         <div ng-repeat="user in demo.users">
-                            <strong>getName</strong>: {{ user.getName() }}<br />
-                            <strong>FIRST</strong>: {{ user.first }} - <strong>LAST</strong>: {{ user.last }}<br />
-                            <strong ng-if="user.lazy">BOSSMAN SAYS LAZY</strong>
-                            <button class="pull-right" style="width: 100%;" ng-click="user.toggleLazy()">Toggle Lazy</button><br />
-                            <button class="pull-right" style="width: 100%;" ng-click="demo.toggleLazy(user)">Persist Toggle Lazy</button>
-                            <hr />
+                            <div style="text-align: center; background: #666; color: #efefef; overflow: auto;">
+                                getName()<br />
+                                <strong>{{ user.getName() }}</strong>
+                                <br ng-if="user.lazy" />
+                                <strong ng-if="user.lazy">~~ BOSSMAN SAYS THEY'RE LAZY ~~~</strong>
+                            </div>
+                            <div style="border: #666 solid; border-width: 0.1rem 0; overflow: auto; padding: 0.6rem; margin-bottom: 0.50rem;">
+                                <div style="width: 33%" class="metadata pull-left">
+                                    <dl>
+                                        <dt>ID:</dt>
+                                        <dd>{{ user.id }}</dd>
+                                    </dl>
+                                </div>
+                                <div style="width: 33%" class="metadata pull-left">
+                                    <dl>
+                                        <dt>First:</dt>
+                                        <dd>{{ user.first }}</dd>
+                                    </dl>
+                                </div>
+                                <div style="width: 33%" class="metadata pull-left">
+                                    <dl>
+                                        <dt>Last:</dt>
+                                        <dd>{{ user.last }}</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <div>
+                                <rx-button
+                                        ng-click="demo.editUser(user)"
+                                        default-msg="Edit User From Instance"
+                                        classes="finish "
+                                        >
+                                </rx-button>
+                                <rx-button
+                                        ng-click="user.toggleLazy()"
+                                        default-msg="Toggle Instance Laziness"
+                                        classes=""
+                                        >
+                                </rx-button>
+                                <rx-button
+                                        ng-click="demo.toggleLazy(user)"
+                                        toggle-msg="Updating Server"
+                                        default-msg="Persist & Toggle Laziness"
+                                        classes="positive ">
+                                </rx-button>
+                            </div>
                         </div>
                     </div>
-                    <div class="pull-left" style="margin: 2em;">
-                        <form class="form">
-                            <label>First Name</label>
-                            <input type="text" ng-model="formUser.first" />
-                            <br />
-                            <label>Last Name</label>
-                            <input type="text" ng-model="formUser.last" />
-                            <br />
-                            <label>Lazy</label>
-                            <input type="checkbox" ng-model="formUser.lazy" />
-                            <br />
-                            <button ng-click="demo.createUser(formUser)">Create User</button>
+                    <div class="pull-left" style="margin: 1rem;">
+                        <h1 class="title xl" style="margin-top: 0;">Create a User</h1>
+                        <form rx-form class="form">
+                            <rx-form-section>
+                                <rx-field>
+                                    <rx-field-name>First Name</rx-field-name>
+                                    <rx-field-content>
+                                        <rx-input>
+                                            <input type="text" ng-model="formUser.first" />
+                                        </rx-input>
+                                    </rx-field-content>
+
+                                    <rx-field-name>Last Name</rx-field-name>
+                                    <rx-field-content>
+                                        <rx-input>
+                                            <input type="text" ng-model="formUser.last" />
+                                        </rx-input>
+                                    </rx-field-content>
+
+                                    <rx-field-name>Lazy?</rx-field-name>
+                                    <rx-field-content>
+                                        <rx-toggle-switch
+                                            ng-model="formUser.lazy"
+                                        </rx-toggle-switch>
+                                    </rx-field-content>
+
+                                    <rx-button
+                                            ng-click="demo.createUser(formUser)"
+                                            toggle-msg="Creating User"
+                                            default-msg="Create User"
+                                            classes="positive full-width">
+                                    </rx-button>
+                                </rx-field>
+                            </rx-form-section>
                         </form>
                     </div>
                 </div>

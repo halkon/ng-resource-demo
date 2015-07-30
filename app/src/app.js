@@ -41,13 +41,36 @@ angular.module('encoreApp', ['ngResource', 'encore.ui', 'encore.svcs.encore',
         var vm = this;
 
         // Scope vars go here
+        var resetFormUser = function () {
+            vm.formUser = {};
+        };
+
+        var resetEditUser = function () {
+            vm.editUser = {};
+        };
+
         var fetchUsers = function () {
             vm.users = User.query();
+            if (arguments.length > 0) {
+                // Grab all function argumnets and pass them as .then
+                _(arguments).compact().where(_.isFunction).forEach(function (fn) {
+                    // this -> points to the promise object
+                    this.then(fn);
+                }, vm.users.$promise);
+            }
+        };
+
+        var getUser = function (user) {
+            if (_.isString(user)) {
+                vm.editUser = User.get({ id: user });
+            } else if (user instanceof User) {
+                vm.editUser = User;
+            }
         };
 
         var createUser = function (user) {
             user = new User(user);
-            user.$save().finally(vm.fetchUsers);
+            return user.$save().finally(vm.fetchUsers);
         };
 
         var toggleLazy = function (user) {
@@ -64,6 +87,7 @@ angular.module('encoreApp', ['ngResource', 'encore.ui', 'encore.svcs.encore',
         vm.createUser = createUser;
         vm.toggleLazy = toggleLazy;
         vm.getUserToEdit = getUserToEdit;
-        vm.formUser = {};
-        vm.fetchUsers();
+
+        // Init things
+        vm.fetchUsers(resetFormUser, resetEditUser);
     });

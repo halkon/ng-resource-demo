@@ -4,7 +4,7 @@ var testPath = global.config.testPath;
 var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
 
-gulp.task('server', ['open', 'watch', 'dpd'], function () {
+gulp.task('server', ['open', 'dpd', 'watch'], function () {
     prismInit('proxy');
 });
 
