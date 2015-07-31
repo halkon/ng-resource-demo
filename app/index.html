@@ -53,14 +53,14 @@
                                                     <rx-button
                                                             ng-click="demo.getUser(user)"
                                                             default-msg="Edit User From Instance"
-                                                            classes="finish ">
+                                                            classes="xs full-width positive">
                                                     </rx-button>
                                                 </li>
                                                 <li>
                                                     <rx-button
                                                             ng-click="user.toggleLazy()"
                                                             default-msg="Toggle Instance Laziness"
-                                                            classes="">
+                                                            classes="xs full-width ">
                                                     </rx-button>
                                                 </li>
                                                 <li>
@@ -68,7 +68,7 @@
                                                             ng-click="demo.toggleLazy(user)"
                                                             toggle-msg="Updating Server"
                                                             default-msg="Persist & Toggle Laziness"
-                                                            classes="positive ">
+                                                            classes="xs full-width negative">
                                                     </rx-button>
                                                 </li>
                                             </ul>
@@ -78,9 +78,9 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="pull-left" style="margin: 1rem;">
-                        <form rx-form class="form" ng-if="demo.editUser.id">
-                            <h1 class="title xl" style="margin-top: 0;">Edit User {{ demo.editUser.getName() }}</h1>
+                    <div class="pull-left" style="margin: 1rem; width: 40%">
+                        <form rx-form class="form full-width" ng-if="demo.editUser.id">
+                            <h1 class="title xl" style="margin-top: 0; white-space: normal">Edit User {{ demo.editUser.getName() }}</h1>
                             <rx-form-section>
                                 <rx-field>
                                     <rx-field-name>First Name</rx-field-name>
@@ -113,7 +113,7 @@
                                 </rx-field>
                             </rx-form-section>
                         </form>
-                        <form rx-form class="form" ng-if="!demo.editUser.id">
+                        <form rx-form class="form full-width" ng-if="!demo.editUser.id">
                             <h1 class="title xl" style="margin-top: 0;">Create a User</h1>
                             <rx-form-section>
                                 <rx-field>
@@ -147,7 +147,7 @@
                                 </rx-field>
                             </rx-form-section>
                         </form>
-                        <form rx-form class="form">
+                        <form rx-form class="form full-width">
                             <rx-form-section>
                                 <rx-field>
                                     <rx-field-name>Edit By User ID</rx-field-name>

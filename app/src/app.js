@@ -39,6 +39,7 @@ angular.module('encoreApp', ['ngResource', 'encore.ui', 'encore.svcs.encore',
     })
     .controller('demoCtrl', function (User) {
         var vm = this;
+        vm.users = [];
 
         // Scope vars go here
         var resetFormUser = function () {
@@ -50,7 +51,10 @@ angular.module('encoreApp', ['ngResource', 'encore.ui', 'encore.svcs.encore',
         };
 
         var fetchUsers = function () {
-            vm.users = User.query();
+            vm.users.$promise = User.query().$promise;
+            vm.users.$promise.then(function (users) {
+                vm.users = users;
+            });
             if (arguments.length > 0) {
                 // Grab all function argumnets and pass them as .then
                 _(arguments).compact().where(_.isFunction).forEach(function (fn) {
