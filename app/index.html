@@ -25,54 +25,58 @@
                     <div class="pull-left" style="margin: 1rem; max-width: 60%">
                         <h1 class="title xl" style="margin-top: 0;">List Users</h1>
                         <rx-button default-msg="Refresh List" classes="full-width" ng-click="demo.fetchUsers()">Refresh List</rx-button>
-                        <div ng-repeat="user in demo.users">
-                            <div style="text-align: center; background: #666; color: #efefef; overflow: auto;">
-                                getName()<br />
-                                <strong>{{ user.getName() }}</strong>
-                                <br ng-if="user.lazy" />
-                                <strong ng-if="user.lazy">~~ BOSSMAN SAYS THEY'RE LAZY ~~~</strong>
-                            </div>
-                            <div style="border: #666 solid; border-width: 0.1rem 0; overflow: auto; padding: 0.6rem; margin-bottom: 0.50rem;">
-                                <div style="width: 33%" class="metadata pull-left">
-                                    <dl>
-                                        <dt>ID:</dt>
-                                        <dd>{{ user.id }}</dd>
-                                    </dl>
-                                </div>
-                                <div style="width: 33%" class="metadata pull-left">
-                                    <dl>
-                                        <dt>First:</dt>
-                                        <dd>{{ user.first }}</dd>
-                                    </dl>
-                                </div>
-                                <div style="width: 33%" class="metadata pull-left">
-                                    <dl>
-                                        <dt>Last:</dt>
-                                        <dd>{{ user.last }}</dd>
-                                    </dl>
-                                </div>
-                            </div>
-                            <div>
-                                <rx-button
-                                        ng-click="demo.getUser(user)"
-                                        default-msg="Edit User From Instance"
-                                        classes="finish "
-                                        >
-                                </rx-button>
-                                <rx-button
-                                        ng-click="user.toggleLazy()"
-                                        default-msg="Toggle Instance Laziness"
-                                        classes=""
-                                        >
-                                </rx-button>
-                                <rx-button
-                                        ng-click="demo.toggleLazy(user)"
-                                        toggle-msg="Updating Server"
-                                        default-msg="Persist & Toggle Laziness"
-                                        classes="positive ">
-                                </rx-button>
-                            </div>
-                        </div>
+                        <table class="table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name (getName())</th>
+                                    <th>First</th>
+                                    <th>Last</th>
+                                    <th>Lazy</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="user in demo.users">
+                                    <td>{{ user.id }}</td>
+                                    <td>{{ user.getName() }}</td>
+                                    <td>{{ user.first }}</td>
+                                    <td>{{ user.last }}</td>
+                                    <td>
+                                        <i ng-if="user.lazy" class="fa fa-eye-slash" />Yes</i>
+                                        <i ng-if="!user.lazy" class="fa fa-eye" />No</i>
+                                    </td>
+                                    <td>
+                                        <rx-action-menu id="globalDismissal">
+                                            <ul class="actions-area">
+                                                <li>
+                                                    <rx-button
+                                                            ng-click="demo.getUser(user)"
+                                                            default-msg="Edit User From Instance"
+                                                            classes="finish ">
+                                                    </rx-button>
+                                                </li>
+                                                <li>
+                                                    <rx-button
+                                                            ng-click="user.toggleLazy()"
+                                                            default-msg="Toggle Instance Laziness"
+                                                            classes="">
+                                                    </rx-button>
+                                                </li>
+                                                <li>
+                                                    <rx-button
+                                                            ng-click="demo.toggleLazy(user)"
+                                                            toggle-msg="Updating Server"
+                                                            default-msg="Persist & Toggle Laziness"
+                                                            classes="positive ">
+                                                    </rx-button>
+                                                </li>
+                                            </ul>
+                                        </rx-action-menu>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                     <div class="pull-left" style="margin: 1rem;">
                         <form rx-form class="form" ng-if="demo.editUser.id">
