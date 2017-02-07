@@ -1,7 +1,7 @@
 {
     "directory": "compiled/bower_components",
     "registry": {
-        "search": ["http://10.23.82.112:8080", "https://bower.herokuapp.com"],
+        "search": ["https://bower.herokuapp.com"],
         "register": "http://10.23.82.112:8080"
     }
 }
