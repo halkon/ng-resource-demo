@@ -1,4 +1,5 @@
 {
+    "excludeFiles": ["app/src/vendor/*"],
     "requireCurlyBraces": [
         "if",
         "else",
