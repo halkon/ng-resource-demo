@@ -84,5 +84,6 @@
     "node": ">=0.10.25"
   },
   "scripts": {
+    "start": "gulp server"
   }
 }
