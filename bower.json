@@ -2,8 +2,7 @@
   "name": "encoreApp",
   "version": "0.0.1",
   "dependencies": {
-    "encore-ui": "latest",
-    "encore-ui-svcs": "latest"
+    "encore-ui": "latest"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.15"
