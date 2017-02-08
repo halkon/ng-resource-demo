@@ -57,10 +57,9 @@ angular.module('encoreApp', ['ngResource', 'encore.ui', 'encore.svcs.encore',
             });
             if (arguments.length > 0) {
                 // Grab all function argumnets and pass them as .then
-                _(arguments).compact().where(_.isFunction).forEach(function (fn) {
-                    // this -> points to the promise object
-                    this.then(fn);
-                }, vm.users.$promise);
+                _(arguments).compact().filter(_.isFunction).forEach(function (fn) {
+                    vm.users.$promise.then(fn);
+                });
             }
         };
 

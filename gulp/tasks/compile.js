@@ -9,6 +9,8 @@ var plugins = require('gulp-load-plugins')();
 var runSequence = require('run-sequence');
 var wiredep = require('wiredep').stream;
 
+var fontDest = compilePath + '/fonts';
+
 var compilationTasks = [
     'compile:fonts',
     'compile:images',
@@ -24,7 +26,7 @@ gulp.task('compile:clean', function () {
         compilePath + '/*',
         '!' + bowerPath
     ];
-    return gulp.src(sources).pipe(del());
+    return gulp.src(sources).pipe(del({ force: true }));
 });//compile:clean
 
 // gather all src images into /compiled/images
@@ -36,13 +38,19 @@ gulp.task('compile:images', function () {
         .pipe(gulp.dest(imgDest));
 });//compile:images
 
-gulp.task('compile:fonts', function () {
-    var fontDest = compilePath + '/src';
+gulp.task('compile:fonts', ['compile:fonts:app', 'compile:fonts:vendor']);
 
+gulp.task('compile:fonts:app', function () {
     return gulp.src(srcPath + '/src/**/fonts/**/*')
         .pipe(plugins.newer(fontDest)) // filter newer files
         .pipe(gulp.dest(fontDest));
-});//compile:fonts
+});//compile:fonts:app
+
+gulp.task('compile:fonts:vendor', function () {
+    return gulp.src(bowerPath + '/font-awesome/fonts/*')
+        .pipe(plugins.newer(fontDest)) // filter newer files
+        .pipe(gulp.dest(fontDest));
+});//compile:fonts:vendor
 
 // Place your (pre)compiling/transpiling logic here
 gulp.task('compile:scripts', function () {
@@ -71,14 +79,17 @@ gulp.task('compile:index', function () {
 });//compile:index
 
 // compile LESS to {compilePath}/application.css
+// ** NOTE **
+// Relies on app.less being loaded first. This should happen so long as
+// app.less comes first alphabetically in the src root folder
 gulp.task('compile:styles', function () {
-    return gulp.src(srcPath + '/src/app.less')
+    return gulp.src(srcPath + '/src/**/*.less')
         .pipe(plugins.plumber(function (err) {
             plugins.util.log(err.message);
             this.emit('end');
         }))
-        .pipe(plugins.less())
         .pipe(plugins.concat('application.css'))
+        .pipe(plugins.less())
         .pipe(gulp.dest(compilePath));
 });//compile:styles
 
@@ -102,11 +113,11 @@ gulp.task('compile:templates', function () {
         .pipe(gulp.dest(compilePath));
 });//compile:templates
 
-gulp.task('compile', ['lint'], function (cb) {
+gulp.task('compile', [], function (cb) {
     runSequence(compilationTasks, cb);
 });//compile
 
-gulp.task('compile:build', ['lint:strict'], function (cb) {
+gulp.task('compile:build', function (cb) {
     // run compile:clean before everything else
     runSequence('compile:clean', compilationTasks, cb);
 });//compile:build
