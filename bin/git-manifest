@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Add information about current git
+branch=$(git branch -a --contains `git rev-parse HEAD` | grep -v "detached" | grep "remote")
+# trims whitespace
+branch=$(set -f; echo $branch)
+# Get current head sha
+sha=$(git rev-parse HEAD)
+# Create JSON
+echo "{\"branch\":\"${branch}\",\"sha\":\"${sha}\"}"
