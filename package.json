@@ -85,6 +85,6 @@
   },
   "scripts": {
     "postinstall": "git config --global url.https://github.com/.insteadOf git://github.com/ && bower install",
-    "start": "gulp server"
+    "start": "gulp server:prod"
   }
 }
