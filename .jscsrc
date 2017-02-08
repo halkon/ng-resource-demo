@@ -30,7 +30,6 @@
     "disallowEmptyBlocks": true,
     "disallowSpacesInsideParentheses": true,
     "requireSpacesInsideObjectBrackets": "allButNested",
-    "disallowDanglingUnderscores": true,
     "disallowSpaceAfterObjectKeys": true,
     "requireCommaBeforeLineBreak": true,
     "disallowSpaceAfterPrefixUnaryOperators": ["++", "--", "+", "-", "~", "!"],

@@ -18,20 +18,17 @@ module.exports = function(config) {
             'compiled/bower_components/angular-sanitize/angular-sanitize.js',
             'compiled/bower_components/angular-resource/angular-resource.js',
             'compiled/bower_components/angular-route/angular-route.js',
+            'compiled/bower_components/angular-messages/angular-messages.js',
             'compiled/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
-            'compiled/bower_components/lodash/dist/lodash.compat.js',
-            'compiled/bower_components/momentjs/moment.js',
+            'compiled/bower_components/lodash/lodash.js',
+            'compiled/bower_components/moment/moment.js',
             'compiled/bower_components/html2canvas/build/html2canvas.js',
-            'compiled/bower_components/mousetrap/mousetrap.js',
             'compiled/bower_components/angular-hotkeys/build/hotkeys.min.js',
             'compiled/bower_components/ng-debounce/angular-debounce.js',
-            'compiled/bower_components/encore-ui/encore-ui-tpls.js',
-            'compiled/bower_components/url/url.js',
-            'compiled/bower_components/encore-ui-svcs/dist/encore-ui-svcs.js',
+            'compiled/bower_components/encore-ui/encore-ui.js',
             // endbower
             'compiled/bower_components/angular-mocks/angular-mocks.js',
             'compiled/src/app.js', // always load app definition first
-            'compiled/templates.js',
             'compiled/src/**/*.js',
             'test/browser-helpers.js'
             // '../test/window-hack.js', // Only load when preventing window.location redirects

@@ -1,5 +1,5 @@
 angular.module('encoreApp', ['ngResource', 'encore.ui', 'encore.svcs.encore',
-        'encoreApp.tpls', 'HomeSvcs', 'encore.svcs.supportService'])
+        'encore.svcs.supportService'])
     .config(function ($locationProvider, $httpProvider) {
         $locationProvider.html5Mode(true).hashPrefix('!');
         $httpProvider.interceptors.push('TokenInterceptor'); //Injects auth token id into api calls

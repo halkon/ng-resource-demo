@@ -16,8 +16,7 @@ var compilationTasks = [
     'compile:images',
     'compile:index',
     'compile:scripts',
-    'compile:styles',
-    'compile:templates'
+    'compile:styles'
 ];
 
 // Clean up the /compiled directory
