@@ -23,6 +23,8 @@ module.exports = function prismInit (prismMode) {
         }
     });
 
+    console.log(baseHref);
+
     prism.create({
         name: 'app',
         context: '/' + baseHref,

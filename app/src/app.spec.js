@@ -1,5 +1,5 @@
-describe.skip('Encore: app', function () {
-    var scope, auth, env, root, $window;
+describe('Encore: app', function () {
+    var scope, auth, env, root, location, $window;
 
     beforeEach(module('encoreApp'));
     beforeEach(module(function ($provide) {
@@ -28,7 +28,7 @@ describe.skip('Encore: app', function () {
     }));
 
     beforeEach(function () {
-        inject(function ($controller, $rootScope, Auth, Environment) {
+        inject(function ($controller, $rootScope, $location, Auth, Environment) {
             root = $rootScope;
             scope = $rootScope.$new();
 
@@ -39,6 +39,9 @@ describe.skip('Encore: app', function () {
 
             env.isLocal = sinon.stub();
             env.isLocal.returns(false);
+
+            location = $location;
+            location.url = sinon.stub().returns('');
         });
     });
 
@@ -50,13 +53,5 @@ describe.skip('Encore: app', function () {
     it('should not check auth functions at first cycle', function () {
         sinon.assert.notCalled(auth.isAuthenticated);
         expect($window.location).to.be.equal('/template');
-    });
-
-    it('should check auth at start first cycle of app', function () {
-        sinon.assert.notCalled(auth.isAuthenticated);
-        expect($window.location).to.be.equal('/template');
-        root.$digest();
-        sinon.assert.calledTwice(auth.isAuthenticated);
-        expect($window.location).to.be.equal('/login?redirect=/template');
     });
 });

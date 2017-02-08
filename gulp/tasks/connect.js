@@ -22,6 +22,9 @@ var _connect = function (staticPath, cb, skipDevMiddleware) {
     var server = connect();
     skipDevMiddleware = skipDevMiddleware === true;
 
+    // Prism proxies
+    server.use(prism.middleware);
+
     if (skipDevMiddleware === false) {
         server.use('/newrelic', function (req, res) {
             res.setHeader('Content-Type', 'text/javascript');
@@ -29,9 +32,6 @@ var _connect = function (staticPath, cb, skipDevMiddleware) {
             res.end(_getStaticFile(path.join(__dirname, '../util/newrelic.js')));
             return false;
         });
-
-        // Prism proxies
-        server.use(prism.middleware);
 
         // Add live reload
         server.use(livereload({ port: lrport }));
@@ -56,7 +56,9 @@ var _connect = function (staticPath, cb, skipDevMiddleware) {
     // HTML5 pushState fallback
     // by disabling the dotRule, we allow for URLs that
     // contain periods to be rewritten back to index.html
-    server.use(historyApiFallback);
+    server.use(historyApiFallback({
+        disableDotRule: true
+    }));
 
     // in the case that we get here, it means that the
     // history API fallback has rewritten our request to

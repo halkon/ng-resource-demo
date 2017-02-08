@@ -13,7 +13,7 @@
     "chai": "^2.1.0",
     "chai-as-promised": "^4.2.0",
     "connect": "^3.3.4",
-    "connect-history-api-fallback": "0.0.5",
+    "connect-history-api-fallback": "^1.3.0",
     "connect-livereload": "^0.5.3",
     "connect-prism": "^1.0.1",
     "del": "^1.1.1",
@@ -85,6 +85,6 @@
   },
   "scripts": {
     "postinstall": "git config --global url.https://github.com/.insteadOf git://github.com/ && bower install",
-    "start": "gulp build server:prod"
+    "start": "gulp build && gulp server:prod"
   }
 }

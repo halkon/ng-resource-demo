@@ -29,4 +29,6 @@ gulp.task('server:jenkins', ['build:mocks', 'connect:build'], function () {
     startStubby();
 });//server:jenkins
 
-gulp.task('server:prod', ['dpd', 'connect:prod']);
+gulp.task('server:prod', ['dpd', 'connect:prod'], function () {
+    prismInit('proxy');
+});

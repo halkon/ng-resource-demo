@@ -1,6 +1,7 @@
 var compilePath = global.config.compilePath;
 var buildPath = global.config.buildPath;
 var bowerPath = global.config.bowerPath;
+var testPath = global.config.testPath;
 
 var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
@@ -11,7 +12,13 @@ gulp.task('build:clean', function () {
     return gulp.src(buildPath + '/*').pipe(rm());
 });//build:clean
 
-gulp.task('build', ['compile:build', 'build:clean', 'build:images', 'karma:build'], function () {
+gulp.task('build', [
+        'compile:build',
+        'build:clean',
+        'build:images',
+        'build:fonts',
+        'karma:build'
+    ], function () {
     var assets = plugins.useref.assets();
 
     return gulp.src(compilePath + '/index.html')
@@ -29,11 +36,11 @@ gulp.task('build', ['compile:build', 'build:clean', 'build:images', 'karma:build
 gulp.task('build:images', ['compile:build'], function (done) {
     // Reference for optimization levels:
     // https://github.com/gruntjs/grunt-contrib-imagemin#optimizationlevel-png
-    var imageminOptions = {
-        optimizationLevel: 3,
-        progressive: true,
-        interlaced: true
-    };
+    // var imageminOptions = {
+    //     optimizationLevel: 3,
+    //     progressive: true,
+    //     interlaced: true
+    // };
 
     // Encore currently uses relative paths for its images,
     // so they must be served from the same directory as the css.
@@ -41,13 +48,29 @@ gulp.task('build:images', ['compile:build'], function (done) {
     gulp.src(bowerPath + '/encore-ui/images/*')
         .pipe(gulp.dest(buildPath + '/styles/images'));
 
-    gulp.src(compilePath + '/images/**/*')
-        .pipe(plugins.imagemin(imageminOptions))
+    gulp.src(compilePath + '/**/images/**/*')
         .pipe(gulp.dest(buildPath));
 
     done();
 });//build:images
 
+gulp.task('build:fonts', ['compile:build'], function () {
+    var fontPaths = [
+        bowerPath + '/font-awesome/fonts/*',
+        compilePath + '/src/common/assets/fonts/*'
+    ];
+    return gulp.src(fontPaths)
+        .pipe(gulp.dest(buildPath + '/fonts'))
+        .pipe(gulp.dest(buildPath + '/styles/fonts'));
+});//build:fonts
+
 gulp.task('build:docs', ['compile:build'], function () {
     // TODO: task to build ngdocs in {global.config.docsPath}
 });//build:docs
+
+gulp.task('build:mocks', function () {
+    gulp.src(testPath + '/api-mocks/**/*.yaml')
+        .pipe(plugins.concat('mocks.yaml'))
+        .pipe(plugins.yaml({ space: 2 }))
+        .pipe(gulp.dest('.'));
+});
