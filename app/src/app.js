@@ -7,7 +7,7 @@ angular.module('encoreApp', ['ngResource', 'encore.ui', 'encore.svcs.encore',
     })
     .run(function ($rootScope, $http, $window, Auth, Environment) {
         $rootScope.$on('$routeChangeStart', function () {
-            if (Environment.get().name !== 'local' && !Auth.isAuthenticated()) {
+            if (!Environment.isLocal() && !Auth.isAuthenticated()) {
                 $window.location = '/login?redirect=' + $window.location.pathname;
                 return;
             }
