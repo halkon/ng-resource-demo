@@ -181,7 +181,7 @@ tasks will open your browser and watch for changes to source files.
 We highly encourage writing unit tests for new code whenever possible. Karma is used to run tests, and coverage
 reports should be generated inside of the `/dist/coverage` directory. Tests should be using Mocha + Chai + Sinon:
 
-* [Mocha](http://visionmedia.github.io/mocha/)
+* [Mocha](http://mochajs.org/)
 * [Chai](http://chaijs.com/)
 * [Sinon](http://sinonjs.org/)
 
